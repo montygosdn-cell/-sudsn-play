@@ -41,7 +41,6 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            transition: all 0.3s ease;
         }
 
         .nav-container {
@@ -60,7 +59,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            transition: all 0.3s ease;
         }
 
         .nav-links {
@@ -84,7 +82,150 @@
             color: var(--primary);
         }
 
-        /* الهيرو سيكشن */
+        .admin-link {
+            background: var(--gradient);
+            color: white !important;
+        }
+
+        .admin-link:hover {
+            background: var(--primary) !important;
+        }
+
+        /* نافذة تسجيل الدخول */
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: var(--shadow-hover);
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .login-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .alert-error {
+            background: #fee;
+            color: #c33;
+            border: 1px solid #fcc;
+        }
+
+        .user-menu {
+            display: none;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* باقي تصميم الموقع */
         .hero {
             background: linear-gradient(rgba(30, 30, 45, 0.85), rgba(30, 30, 45, 0.9)), 
                         url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
@@ -93,521 +234,25 @@
             color: white;
             padding: 8rem 2rem;
             text-align: center;
-            position: relative;
-            overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--gradient);
-            opacity: 0.2;
-            z-index: 0;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            font-weight: 800;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2.5rem;
-            opacity: 0.9;
-            line-height: 1.8;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: var(--gradient);
-            color: white;
-            padding: 1.2rem 2.5rem;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: all 0.3s;
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
-        }
-
-        /* قسم التطبيقات */
         .apps-section {
             padding: 6rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 2.8rem;
-            margin-bottom: 4rem;
-            font-weight: 800;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 5px;
-            background: var(--gradient);
-            margin: 1rem auto;
-            border-radius: 5px;
-        }
-
-        /* فئات التطبيقات */
-        .categories {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 4rem;
-            flex-wrap: wrap;
-        }
-
-        .category-btn {
-            background: white;
-            border: 2px solid rgba(74, 107, 255, 0.1);
-            padding: 0.8rem 1.8rem;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 500;
-            color: var(--dark);
-            box-shadow: var(--shadow);
-        }
-
-        .category-btn.active,
-        .category-btn:hover {
-            background: var(--gradient);
-            color: white;
-            border-color: transparent;
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-        }
-
         .apps-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
 
         .app-card {
             background: white;
-            border-radius: 20px;
-            overflow: hidden;
+            border-radius: 15px;
+            padding: 1.5rem;
             box-shadow: var(--shadow);
-            transition: all 0.4s ease;
-            position: relative;
-            border: 1px solid rgba(74, 107, 255, 0.05);
-        }
-
-        .app-card:hover {
-            transform: translateY(-15px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .app-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .app-card:hover .app-image {
-            transform: scale(1.05);
-        }
-
-        .app-content {
-            padding: 2rem;
-        }
-
-        .app-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .app-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 18px;
-            object-fit: cover;
-            border: 3px solid white;
-            box-shadow: var(--shadow);
-        }
-
-        .app-title {
-            flex: 1;
-        }
-
-        .app-title h3 {
-            margin: 0 0 0.5rem 0;
-            color: var(--dark);
-            font-size: 1.4rem;
-        }
-
-        .app-category {
-            background: var(--gradient);
-            color: white;
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            display: inline-block;
-            font-weight: 600;
-        }
-
-        .app-description {
-            color: #666;
-            margin-bottom: 1.5rem;
-            line-height: 1.7;
-        }
-
-        .app-screenshots {
-            display: flex;
-            gap: 0.5rem;
-            margin: 1.5rem 0;
-            overflow-x: auto;
-            padding-bottom: 0.5rem;
-        }
-
-        .screenshot {
-            width: 90px;
-            height: 90px;
-            border-radius: 12px;
-            object-fit: cover;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-
-        .screenshot:hover {
-            transform: scale(1.1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .app-stats {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .download-btn {
-            background: var(--gradient);
-            color: white;
-            padding: 0.9rem 1.8rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-            box-shadow: var(--shadow);
-        }
-
-        .download-btn:hover {
-            transform: scale(1.05);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .app-meta {
-            display: flex;
-            gap: 1.2rem;
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .app-meta span {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        /* قسم المميزات */
-        .features {
-            background: var(--light);
-            padding: 6rem 2rem;
-            text-align: center;
-            position: relative;
-        }
-
-        .features::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 2.5rem 2rem;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: var(--gradient);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .feature-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .feature-card h3 {
-            margin-bottom: 1rem;
-            color: var(--dark);
-            font-size: 1.4rem;
-        }
-
-        .feature-card p {
-            color: #666;
-            line-height: 1.7;
-        }
-
-        /* الفوتر */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 4rem 2rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-content h3 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .footer-content p {
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            opacity: 0.8;
-            line-height: 1.7;
-        }
-
-        .company-info {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .social-links a {
-            color: white;
-            font-size: 1.5rem;
-            transition: all 0.3s;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .social-links a:hover {
-            background: var(--gradient);
-            transform: translateY(-5px);
-        }
-
-        /* Modal للصورة الكبيرة */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            animation: fadeIn 0.3s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            margin: auto;
-            display: block;
-            max-width: 90%;
-            max-height: 90%;
-            margin-top: 2%;
-            border-radius: 10px;
-            animation: zoomIn 0.3s;
-        }
-
-        @keyframes zoomIn {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 35px;
-            color: white;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .close-modal:hover {
-            color: var(--secondary);
-        }
-
-        /* شريط التمرير المخصص */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--gradient);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
-            }
-            
-            .nav-links {
-                gap: 1rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .hero {
-                padding: 5rem 1rem;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .apps-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .section-title {
-                font-size: 2.2rem;
-            }
-            
-            .app-stats {
-                flex-direction: column;
-                gap: 1rem;
-                align-items: flex-start;
-            }
-            
-            .app-meta {
-                width: 100%;
-                justify-content: space-between;
-            }
         }
     </style>
 </head>
@@ -623,322 +268,231 @@
                 <li><a href="#apps">التطبيقات</a></li>
                 <li><a href="#features">المميزات</a></li>
                 <li><a href="#contact">اتصل بنا</a></li>
+                <li id="loginBtnItem">
+                    <a href="#" onclick="openLogin()" class="admin-link">
+                        <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+                    </a>
+                </li>
+                <li id="userMenuItem" class="user-menu">
+                    <span id="userGreeting">مرحباً، أحمد</span>
+                    <div class="user-avatar" id="userAvatar">أ</div>
+                    <a href="#" onclick="logout()" style="color: var(--secondary);">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
 
-    <!-- الهيرو سيكشن -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>اكتشف عالم التطبيقات السودانية</h1>
-            <p>منصة Sudan Play تقدم لك أفضل التطبيقات المحلية المصممة خصيصاً لمجتمعنا السوداني. حمّل واستمتع بتجربة فريدة</p>
-            <a href="#apps" class="cta-button">
-                <i class="fas fa-rocket"></i> ابدأ التصفح الآن
-            </a>
-        </div>
-    </section>
-
-    <!-- قسم التطبيقات -->
-    <section class="apps-section" id="apps">
-        <h2 class="section-title">تطبيقاتنا المميزة</h2>
-        
-        <!-- فئات التطبيقات -->
-        <div class="categories">
-            <button class="category-btn active" onclick="filterApps('all')">جميع التطبيقات</button>
-            <button class="category-btn" onclick="filterApps('أخبار')">أخبار</button>
-            <button class="category-btn" onclick="filterApps('موسيقى')">موسيقى</button>
-            <button class="category-btn" onclick="filterApps('تسوق')">تسوق</button>
-            <button class="category-btn" onclick="filterApps('تعليم')">تعليم</button>
-        </div>
-
-        <div class="apps-grid" id="appsContainer">
-            <!-- التطبيقات تظهر هنا -->
-        </div>
-    </section>
-
-    <!-- قسم المميزات -->
-    <section class="features" id="features">
-        <h2 class="section-title">لماذا تختار Sudan Play؟</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <h3>آمن ومضمون</h3>
-                <p>جميع التطبيقات خاضعة لفحص دقيق لضمان أمانها وسلامتها</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-bolt"></i>
-                </div>
-                <h3>تحميل سريع</h3>
-                <p>خوادم سريعة تضمن تحميل التطبيقات بأقصى سرعة ممكنة</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-star"></i>
-                </div>
-                <h3>جودة عالية</h3>
-                <p>تطبيقات عالية الجودة مصممة خصيصاً للمستخدم السوداني</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-headset"></i>
-                </div>
-                <h3>دعم فني</h3>
-                <p>فريق دعم فني متاح لمساعدتك في أي وقت</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- الفوتر -->
-    <footer id="contact">
-        <div class="footer-content">
-            <h3><i class="fas fa-globe-africa"></i> Sudan Play</h3>
-            <p>منصة التطبيقات السودانية الرائدة - نوفر أفضل التجارب الرقمية لمجتمعنا</p>
+    <!-- نافذة تسجيل الدخول -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-box">
+            <button class="close-btn" onclick="closeLogin()">×</button>
             
-            <div class="social-links">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-telegram"></i></a>
+            <div class="login-tabs">
+                <button class="tab-btn active" onclick="switchTab('user')">مستخدم عادي</button>
+                <button class="tab-btn" onclick="switchTab('admin')">مدير النظام</button>
             </div>
-            
-            <div class="company-info">
-                <p>© 2024 جميع الحقوق محفوظة لشركة Sudan Play</p>
-                <p style="margin-top: 0.5rem; font-weight: bold; font-size: 1.1rem;">
-                    <i class="fas fa-building"></i> Monty Go SDN -Co-Ltd
-                </p>
-                <p style="margin-top: 0.5rem;">
-                    <i class="fas fa-envelope"></i> info@sudanplay.com | 
-                    <i class="fas fa-phone"></i> 249127432167+
-                </p>
+
+            <!-- تبويب المستخدم العادي -->
+            <div id="userTab">
+                <h3 style="text-align: center; margin-bottom: 1.5rem;">تسجيل الدخول</h3>
+                
+                <div class="alert alert-error" id="userError">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span id="userErrorMsg">البريد الإلكتروني أو كلمة المرور غير صحيحة</span>
+                </div>
+
+                <form id="userLoginForm">
+                    <div class="form-group">
+                        <label>البريد الإلكتروني</label>
+                        <input type="email" class="form-control" placeholder="example@gmail.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>كلمة المرور</label>
+                        <input type="password" class="form-control" placeholder="كلمة المرور" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+                    </button>
+                </form>
+
+                <div style="text-align: center; margin-top: 1rem;">
+                    <a href="#" style="color: var(--primary); font-size: 0.9rem;">إنشاء حساب جديد</a>
+                </div>
+            </div>
+
+            <!-- تبويب المدير -->
+            <div id="adminTab" style="display: none;">
+                <h3 style="text-align: center; margin-bottom: 1.5rem;">مدير النظام</h3>
+                
+                <div class="alert alert-error" id="adminError">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span id="adminErrorMsg">بيانات الدخول غير صحيحة</span>
+                </div>
+
+                <form id="adminLoginForm">
+                    <div class="form-group">
+                        <label>البريد الإلكتروني</label>
+                        <input type="email" class="form-control" placeholder="admin@montygosdn.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>كلمة المرور</label>
+                        <input type="password" class="form-control" placeholder="كلمة المرور" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-lock"></i> دخول المدير
+                    </button>
+                </form>
             </div>
         </div>
-    </footer>
-
-    <!-- Modal للصورة الكبيرة -->
-    <div id="imageModal" class="modal">
-        <span class="close-modal" onclick="closeModal()">&times;</span>
-        <img class="modal-content" id="modalImage">
     </div>
 
+    <!-- محتوى الموقع -->
+    <section class="hero" id="home">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h1 style="font-size: 3rem; margin-bottom: 1rem;">اكتشف عالم التطبيقات السودانية</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">منصة Sudan Play تقدم لك أفضل التطبيقات المحلية</p>
+            <a href="#apps" style="background: var(--gradient); color: white; padding: 1rem 2rem; border-radius: 25px; text-decoration: none;">استعرض التطبيقات</a>
+        </div>
+    </section>
+
+    <section class="apps-section" id="apps">
+        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;">تطبيقاتنا المميزة</h2>
+        <div class="apps-grid">
+            <div class="app-card">
+                <h3>سودان نيوز</h3>
+                <p>آخر الأخبار السودانية من مصادر موثوقة</p>
+            </div>
+            <div class="app-card">
+                <h3>سودان ميوزك</h3>
+                <p>أكبر منصة موسيقية سودانية</p>
+            </div>
+        </div>
+    </section>
+
     <script>
-        // بيانات التطبيقات الحقيقية
-        const realApps = [
-            {
-                id: 1,
-                name: "سودان نيوز",
-                description: "تطبيق متكامل يقدم آخر الأخبار السودانية من مصادر موثوقة. احصل على التحديثات الفورية والأخبار العاجلة في جميع المجالات السياسية والاقتصادية والرياضية.",
-                category: "أخبار",
-                icon: "https://images.unsplash.com/photo-1586339949216-35c2747cc36c?w=200&h=200&fit=crop",
-                screenshots: [
-                    "https://images.unsplash.com/photo-1556655848-f3a79cc6d4a9?w=300&h=600&fit=crop",
-                    "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=300&h=600&fit=crop"
-                ],
-                downloads: 12543,
-                version: "2.1.0",
-                rating: "4.8",
-                size: "15 MB",
-                downloadUrl: "#"
-            },
-            {
-                id: 2, 
-                name: "سودان ميوزك",
-                description: "أكبر منصة موسيقية سودانية تحتوي على آلاف الأغاني من التراث السوداني والموسيقى المعاصرة. استمع وتحميل ومشاركة أفضل الألحان.",
-                category: "موسيقى",
-                icon: "https://images.unsplash.com/photo-1571974599782-87624638275f?w=200&h=200&fit=crop",
-                screenshots: [
-                    "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=300&h=600&fit=crop"
-                ],
-                downloads: 28764,
-                version: "1.5.2", 
-                rating: "4.9",
-                size: "28 MB",
-                downloadUrl: "#"
-            },
-            {
-                id: 3,
-                name: "سوق سوداني",
-                description: "منصة تسوق إلكتروني تتيح لك شراء وبيع المنتجات السودانية الأصيلة. تسوق من آلاف المتاجر المحلية بثقة وسهولة.",
-                category: "تسوق",
-                icon: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=200&h=200&fit=crop",
-                screenshots: [
-                    "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=300&h=600&fit=crop",
-                    "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=300&h=600&fit=crop"
-                ],
-                downloads: 8943,
-                version: "3.0.1",
-                rating: "4.6",
-                size: "42 MB",
-                downloadUrl: "#"
-            },
-            {
-                id: 4,
-                name: "تعلم العربية",
-                description: "تطبيق تعليمي مميز لتعليم اللغة العربية بأسلوب تفاعلي. مناسب لجميع الأعمال مع دروس متنوعة وتمارين تفاعلية.",
-                category: "تعليم",
-                icon: "https://images.unsplash.com/photo-1589998059171-988d887df646?w=200&h=200&fit=crop",
-                screenshots: [
-                    "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=300&h=600&fit=crop"
-                ],
-                downloads: 15632,
-                version: "1.2.3",
-                rating: "4.7",
-                size: "35 MB",
-                downloadUrl: "#"
-            },
-            {
-                id: 5,
-                name: "أخبار الرياضة",
-                description: "تابع آخر أخبار الرياضة السودانية والعالمية. تغطية شاملة للدوري السوداني وبطولات أفريقيا والعالم.",
-                category: "أخبار",
-                icon: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=200&h=200&fit=crop",
-                screenshots: [
-                    "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=300&h=600&fit=crop"
-                ],
-                downloads: 9876,
-                version: "2.0.5",
-                rating: "4.5",
-                size: "22 MB",
-                downloadUrl: "#"
-            },
-            {
-                id: 6,
-                name: "موسيقى حضرية",
-                description: "استمع لأحدث الأغاني الحضرية السودانية. تطبيق مخصص لعشاق الموسيقى الحضرية بميزات متقدمة.",
-                category: "موسيقى",
-                icon: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200&h=200&fit=crop",
-                screenshots: [
-                    "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=600&fit=crop"
-                ],
-                downloads: 13456,
-                version: "1.8.2",
-                rating: "4.4",
-                size: "31 MB",
-                downloadUrl: "#"
-            }
+        // بيانات المستخدمين
+        const adminCredentials = {
+            email: "admin@montygosdn.com",
+            password: "kaytookp123kjk",
+            name: "مدير النظام",
+            role: "admin"
+        };
+
+        const normalUsers = [
+            { email: "user1@gmail.com", password: "123456", name: "مستخدم عادي", role: "user" }
         ];
 
-        // دالة تحميل التطبيقات
-        function loadApps(category = 'all') {
-            const container = document.getElementById('appsContainer');
-            
-            const filteredApps = category === 'all' ? realApps : realApps.filter(app => app.category === category);
-            
-            container.innerHTML = filteredApps.map(app => `
-                <div class="app-card">
-                    <img src="${app.icon}" alt="${app.name}" class="app-image" onerror="this.src='https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=200&fit=crop'">
-                    <div class="app-content">
-                        <div class="app-header">
-                            <img src="${app.icon}" alt="${app.name}" class="app-icon" onerror="this.src='https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=200&h=200&fit=crop'">
-                            <div class="app-title">
-                                <h3>${app.name}</h3>
-                                <span class="app-category">${app.category}</span>
-                            </div>
-                        </div>
-                        
-                        <p class="app-description">${app.description}</p>
-                        
-                        ${app.screenshots && app.screenshots.length > 0 ? `
-                            <div class="app-screenshots">
-                                ${app.screenshots.map(screenshot => `
-                                    <img src="${screenshot}" alt="لقطة شاشة" class="screenshot" onclick="openModal('${screenshot}')" onerror="this.style.display='none'">
-                                `).join('')}
-                            </div>
-                        ` : ''}
-                        
-                        <div class="app-stats">
-                            <div class="app-meta">
-                                <span><i class="fas fa-download"></i> ${app.downloads.toLocaleString()}</span>
-                                <span><i class="fas fa-star"></i> ${app.rating}</span>
-                                <span>${app.size}</span>
-                            </div>
-                            <button class="download-btn" onclick="downloadApp(${app.id})">
-                                <i class="fas fa-download"></i> تحميل
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
+        // فتح نافذة التسجيل
+        function openLogin() {
+            document.getElementById('loginModal').style.display = 'flex';
         }
 
-        // دالة تصفية التطبيقات
-        function filterApps(category) {
-            // تحديث الأزرار النشطة
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            // تحميل التطبيقات المصفاة
-            loadApps(category);
+        // إغلاق نافذة التسجيل
+        function closeLogin() {
+            document.getElementById('loginModal').style.display = 'none';
         }
 
-        // دالة التحميل
-        function downloadApp(appId) {
-            const app = realApps.find(a => a.id == appId);
+        // تبديل التبويبات
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('userTab').style.display = 'none';
+            document.getElementById('adminTab').style.display = 'none';
             
-            if (app) {
-                // محاكاة عملية التحميل
-                const originalText = event.target.innerHTML;
-                event.target.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحميل...';
-                event.target.disabled = true;
-                
-                setTimeout(() => {
-                    event.target.innerHTML = '<i class="fas fa-check"></i> تم التحميل';
-                    
-                    setTimeout(() => {
-                        event.target.innerHTML = originalText;
-                        event.target.disabled = false;
-                        
-                        // إذا كان هناك رابط تحميل، افتحه
-                        if (app.downloadUrl && app.downloadUrl !== '#') {
-                            window.open(app.downloadUrl, '_blank');
-                        } else {
-                            alert(`تم تحميل ${app.name} بنجاح!\n\nسيتم تثبيت التطبيق على جهازك.`);
-                        }
-                    }, 1000);
-                }, 2000);
+            if (tab === 'user') {
+                document.querySelector('.tab-btn:nth-child(1)').classList.add('active');
+                document.getElementById('userTab').style.display = 'block';
+            } else {
+                document.querySelector('.tab-btn:nth-child(2)').classList.add('active');
+                document.getElementById('adminTab').style.display = 'block';
             }
         }
 
-        // دالة فتح الصورة في modal
-        function openModal(imageUrl) {
-            document.getElementById('modalImage').src = imageUrl;
-            document.getElementById('imageModal').style.display = 'block';
+        // عرض خطأ
+        function showError(tab, message) {
+            const errorEl = document.getElementById(tab + 'Error');
+            const errorMsg = document.getElementById(tab + 'ErrorMsg');
+            errorMsg.textContent = message;
+            errorEl.style.display = 'block';
         }
 
-        // دالة إغلاق modal
-        function closeModal() {
-            document.getElementById('imageModal').style.display = 'none';
-        }
+        // تسجيل دخول المدير
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            const password = this.querySelector('input[type="password"]').value;
 
-        // عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', function() {
-            loadApps();
-            
-            // إضافة تأثيرات للروابط
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
+            document.getElementById('adminError').style.display = 'none';
+
+            if (email === adminCredentials.email && password === adminCredentials.password) {
+                // نجح تسجيل المدير
+                localStorage.setItem('currentUser', JSON.stringify(adminCredentials));
+                showUserMenu(adminCredentials);
+                closeLogin();
+                alert('مرحباً مدير النظام! انتقل إلى لوحة التحكم');
+                window.location.href = 'dashboard.html';
+            } else {
+                showError('admin', 'بيانات الدخول غير صحيحة للمدير');
+            }
         });
 
-        // إغلاق modal عند النقر خارج الصورة
-        window.onclick = function(event) {
-            const modal = document.getElementById('imageModal');
-            if (event.target === modal) {
-                closeModal();
+        // تسجيل دخول المستخدم العادي
+        document.getElementById('userLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            const password = this.querySelector('input[type="password"]').value;
+
+            document.getElementById('userError').style.display = 'none';
+
+            const user = normalUsers.find(u => u.email === email && u.password === password);
+            if (user) {
+                // نجح تسجيل المستخدم العادي
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                showUserMenu(user);
+                closeLogin();
+                alert('مرحباً! تم تسجيل الدخول بنجاح');
+            } else {
+                showError('user', 'البريد الإلكتروني أو كلمة المرور غير صحيحة');
+            }
+        });
+
+        // عرض قائمة المستخدم
+        function showUserMenu(user) {
+            document.getElementById('loginBtnItem').style.display = 'none';
+            document.getElementById('userMenuItem').style.display = 'flex';
+            document.getElementById('userGreeting').textContent = `مرحباً، ${user.name}`;
+            document.getElementById('userAvatar').textContent = user.name.charAt(0);
+        }
+
+        // تسجيل الخروج
+        function logout() {
+            localStorage.removeItem('currentUser');
+            document.getElementById('loginBtnItem').style.display = 'list-item';
+            document.getElementById('userMenuItem').style.display = 'none';
+            alert('تم تسجيل الخروج بنجاح');
+        }
+
+        // التحقق من المستخدم المسجل
+        function checkLoggedInUser() {
+            const userData = localStorage.getItem('currentUser');
+            if (userData) {
+                const user = JSON.parse(userData);
+                showUserMenu(user);
             }
         }
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            checkLoggedInUser();
+            
+            // إغلاق النافذة عند النقر خارجها
+            document.getElementById('loginModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeLogin();
+                }
+            });
+        });
     </script>
 </body>
 </html>

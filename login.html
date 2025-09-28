@@ -14,27 +14,19 @@
         }
 
         :root {
-            --primary: rgb(74, 107, 255);
-            --secondary: rgb(255, 94, 125);
-            --accent: rgb(46, 196, 182);
-            --dark: rgb(30, 30, 45);
-            --light: rgb(248, 249, 254);
-            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            --gradient-light: linear-gradient(135deg, rgba(74, 107, 255, 0.1) 0%, rgba(255, 94, 125, 0.1) 100%);
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.15);
+            --primary: #4a6bff;
+            --secondary: #ff5e7d;
+            --dark: #1e1e2d;
+            --light: #f8f9fe;
         }
 
         body {
-            background: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 1rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
         .login-container {
@@ -45,14 +37,9 @@
         .login-card {
             background: white;
             border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: var(--shadow-hover);
+            padding: 2rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
             text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .login-card:hover {
-            transform: translateY(-5px);
         }
 
         .logo {
@@ -61,16 +48,10 @@
 
         .logo h1 {
             font-size: 2rem;
-            background: var(--gradient);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
             margin-bottom: 0.5rem;
-        }
-
-        .logo p {
-            color: #666;
-            font-size: 0.9rem;
         }
 
         .form-group {
@@ -82,36 +63,20 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 500;
-            color: var(--dark);
-        }
-
-        .input-with-icon {
-            position: relative;
-        }
-
-        .input-with-icon i {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #999;
         }
 
         .form-control {
             width: 100%;
-            padding: 1rem 1rem 1rem 3rem;
+            padding: 1rem;
             border: 2px solid #e9ecef;
             border-radius: 10px;
             font-size: 1rem;
             transition: all 0.3s;
-            background: #f8f9fa;
         }
 
         .form-control:focus {
             outline: none;
             border-color: var(--primary);
-            background: white;
-            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.1);
         }
 
         .btn {
@@ -123,53 +88,21 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
         }
 
         .btn-primary {
-            background: var(--gradient);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
-            box-shadow: var(--shadow);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .btn-secondary {
-            background: #f8f9fa;
-            color: var(--dark);
-            border: 2px solid #e9ecef;
-            margin-top: 1rem;
-        }
-
-        .btn-secondary:hover {
-            background: #e9ecef;
-        }
-
-        .forgot-password {
-            text-align: center;
-            margin: 1.5rem 0;
-        }
-
-        .forgot-password a {
-            color: var(--primary);
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-
-        .forgot-password a:hover {
-            text-decoration: underline;
         }
 
         .alert {
             padding: 1rem;
             border-radius: 10px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             display: none;
         }
 
@@ -178,113 +111,9 @@
             color: #c33;
             border: 1px solid #fcc;
         }
-
-        .alert-success {
-            background: #efe;
-            color: #363;
-            border: 1px solid #cfc;
-        }
-
-        .login-footer {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #e9ecef;
-            color: #666;
-            font-size: 0.8rem;
-        }
-
-        .language-switcher {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-        }
-
-        .lang-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s;
-        }
-
-        .lang-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .quick-links {
-            margin-top: 1.5rem;
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-        }
-
-        .quick-link {
-            color: var(--primary);
-            text-decoration: none;
-            font-size: 0.8rem;
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--primary);
-            border-radius: 20px;
-            transition: all 0.3s;
-        }
-
-        .quick-link:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        @media (max-width: 480px) {
-            .login-card {
-                padding: 2rem 1.5rem;
-            }
-            
-            .logo h1 {
-                font-size: 1.5rem;
-            }
-            
-            .quick-links {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-        }
-
-        /* تأثيرات إضافية */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: float 6s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
     </style>
 </head>
 <body>
-    <!-- زر تغيير اللغة -->
-    <div class="language-switcher">
-        <button class="lang-btn" onclick="toggleLanguage()">
-            <i class="fas fa-globe"></i> English
-        </button>
-    </div>
-
-    <!-- تأثيرات الخلفية -->
-    <div class="particles" id="particles"></div>
-
     <div class="login-container">
         <div class="login-card">
             <div class="logo">
@@ -300,22 +129,12 @@
             <form id="loginForm">
                 <div class="form-group">
                     <label for="username">اسم المستخدم</label>
-                    <div class="input-with-icon">
-                        <i class="fas fa-user"></i>
-                        <input type="text" id="username" class="form-control" placeholder="أدخل اسم المستخدم" required>
-                    </div>
+                    <input type="text" id="username" class="form-control" placeholder="أدخل اسم المستخدم" value="admin" required>
                 </div>
 
                 <div class="form-group">
                     <label for="password">كلمة المرور</label>
-                    <div class="input-with-icon">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" id="password" class="form-control" placeholder="أدخل كلمة المرور" required>
-                    </div>
-                </div>
-
-                <div class="forgot-password">
-                    <a href="#" onclick="forgotPassword()">نسيت كلمة المرور؟</a>
+                    <input type="password" id="password" class="form-control" placeholder="أدخل كلمة المرور" value="admin123" required>
                 </div>
 
                 <button type="submit" class="btn btn-primary">
@@ -323,230 +142,87 @@
                     تسجيل الدخول
                 </button>
 
-                <div class="quick-links">
-                    <a href="dashboard.html" class="quick-link" onclick="return tryAccessDashboard()">
-                        <i class="fas fa-tachometer-alt"></i>
-                        الدخول المباشر للوحة التحكم
-                    </a>
-                    <a href="index.html" class="quick-link">
+                <div style="margin-top: 1.5rem; text-align: center;">
+                    <a href="index.html" style="color: var(--primary); text-decoration: none;">
                         <i class="fas fa-home"></i>
                         العودة للرئيسية
                     </a>
                 </div>
             </form>
 
-            <div class="login-footer">
+            <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e9ecef; color: #666; font-size: 0.8rem;">
                 <p>© 2024 Sudan Play. جميع الحقوق محفوظة</p>
-                <p style="margin-top: 0.5rem; font-size: 0.7rem; opacity: 0.7;">
-                    Monty Go SDN -Co-Ltd
+                <p style="margin-top: 0.5rem; font-size: 0.7rem;">
+                    بيانات الاختبار: admin / admin123
                 </p>
-                
-                <!-- معلومات الدخول للاختبار -->
-                <div style="margin-top: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 10px; font-size: 0.7rem;">
-                    <p style="margin-bottom: 0.5rem; font-weight: bold;">بيانات اختبار:</p>
-                    <p>المستخدم: <strong>admin</strong> | كلمة المرور: <strong>admin123</strong></p>
-                    <p>المستخدم: <strong>moderator</strong> | كلمة المرور: <strong>mod123</strong></p>
-                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // إنشاء تأثيرات الجسيمات
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 15;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                const size = Math.random() * 60 + 10;
-                const opacity = Math.random() * 0.3 + 0.1;
-                const left = Math.random() * 100;
-                const top = Math.random() * 100;
-                const delay = Math.random() * 5;
-                
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${left}%`;
-                particle.style.top = `${top}%`;
-                particle.style.opacity = opacity;
-                particle.style.animationDelay = `${delay}s`;
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
-
-        // بيانات المستخدمين المسموح لهم
-        const allowedUsers = [
-            { username: "admin", password: "admin123", name: "مدير النظام", role: "admin" },
-            { username: "moderator", password: "mod123", name: "مشرف المحتوى", role: "moderator" },
-            { username: "editor", password: "edit123", name: "محرر", role: "editor" }
+        // بيانات المستخدمين
+        const users = [
+            { username: "admin", password: "admin123", name: "مدير النظام" },
+            { username: "moderator", password: "mod123", name: "مشرف المحتوى" }
         ];
 
-        // عرض/إخفاء رسالة الخطأ
+        // عرض الخطأ
         function showError(message) {
             const errorAlert = document.getElementById('errorAlert');
             const errorMessage = document.getElementById('errorMessage');
-            
             errorMessage.textContent = message;
             errorAlert.style.display = 'block';
-            
-            setTimeout(() => {
-                errorAlert.style.display = 'none';
-            }, 5000);
         }
 
-        // التحقق من بيانات الدخول
+        // التحقق من الدخول
         function validateLogin(username, password) {
-            return allowedUsers.find(user => 
-                user.username === username && user.password === password
-            );
+            return users.find(user => user.username === username && user.password === password);
         }
 
-        // حفظ حالة تسجيل الدخول
-        function setLoginSession(user) {
-            const session = {
+        // حفظ الجلسة
+        function saveSession(user) {
+            localStorage.setItem('sudanPlayAdmin', JSON.stringify({
                 loggedIn: true,
                 username: user.username,
                 name: user.name,
-                role: user.role,
                 loginTime: new Date().toISOString()
-            };
-            localStorage.setItem('sudanPlayAdmin', JSON.stringify(session));
-            return true;
+            }));
         }
 
-        // محاولة الدخول المباشر للوحة التحكم
-        function tryAccessDashboard() {
-            const session = localStorage.getItem('sudanPlayAdmin');
-            if (session) {
-                return true; // يسمح بالانتقال
-            } else {
-                alert('يجب تسجيل الدخول أولاً للوصول إلى لوحة التحكم');
-                return false; // يمنع الانتقال
-            }
-        }
-
-        // نسيت كلمة المرور
-        function forgotPassword() {
-            alert('لإعادة تعيين كلمة المرور، يرجى التواصل مع مدير النظام على: admin@sudanplay.com');
-            return false;
-        }
-
-        // تبديل اللغة
-        function toggleLanguage() {
-            const currentLang = document.documentElement.lang;
-            if (currentLang === 'ar') {
-                // التبديل للإنجليزية
-                document.documentElement.lang = 'en';
-                document.documentElement.dir = 'ltr';
-                document.title = 'Login - Sudan Play';
-                document.querySelector('.logo h1').innerHTML = '<i class="fas fa-mobile-alt"></i> Sudan Play';
-                document.querySelector('.logo p').textContent = 'Apps Store Dashboard';
-                document.querySelector('label[for="username"]').textContent = 'Username';
-                document.querySelector('label[for="password"]').textContent = 'Password';
-                document.querySelector('#username').placeholder = 'Enter your username';
-                document.querySelector('#password').placeholder = 'Enter your password';
-                document.querySelector('.forgot-password a').textContent = 'Forgot Password?';
-                document.querySelector('.btn-primary').innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
-                document.querySelector('.quick-link[href="dashboard.html"]').innerHTML = '<i class="fas fa-tachometer-alt"></i> Direct Access to Dashboard';
-                document.querySelector('.quick-link[href="index.html"]').innerHTML = '<i class="fas fa-home"></i> Back to Home';
-                document.querySelector('.login-footer p').textContent = '© 2024 Sudan Play. All rights reserved';
-                document.querySelector('.lang-btn').innerHTML = '<i class="fas fa-globe"></i> العربية';
-                document.querySelector('#errorMessage').textContent = 'Invalid username or password';
-                
-                // تحديث معلومات الاختبار
-                const testInfo = document.querySelector('.login-footer > div');
-                testInfo.querySelector('p:first-child').textContent = 'Test Credentials:';
-                testInfo.querySelector('p:nth-child(2)').innerHTML = 'User: <strong>admin</strong> | Password: <strong>admin123</strong>';
-                testInfo.querySelector('p:nth-child(3)').innerHTML = 'User: <strong>moderator</strong> | Password: <strong>mod123</strong>';
-            } else {
-                // التبديل للعربية
-                document.documentElement.lang = 'ar';
-                document.documentElement.dir = 'rtl';
-                location.reload();
-            }
-        }
-
-        // معالجة تسجيل الدخول
+        // معالجة التسجيل
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const username = document.getElementById('username').value.trim();
+            const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             
-            // إخفاء رسالة الخطأ السابقة
+            // إخفاء الخطأ السابق
             document.getElementById('errorAlert').style.display = 'none';
             
-            // التحقق من الحقول الفارغة
             if (!username || !password) {
-                showError('يرجى ملء جميع الحقول المطلوبة');
+                showError('يرجى ملء جميع الحقول');
                 return;
             }
             
-            // محاكاة التحميل
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحقق...';
-            submitBtn.disabled = true;
+            const user = validateLogin(username, password);
             
-            // محاكاة وقت التحقق
-            setTimeout(() => {
-                const user = validateLogin(username, password);
+            if (user) {
+                // نجح التسجيل
+                saveSession(user);
                 
-                if (user) {
-                    // تسجيل الدخول ناجح
-                    setLoginSession(user);
-                    
-                    // عرض رسالة النجاح
-                    submitBtn.innerHTML = '<i class="fas fa-check"></i> تم التسجيل بنجاح!';
-                    submitBtn.style.background = 'linear-gradient(135deg, #28a745 0%, #20c997 100%)';
-                    
-                    // الانتقال للوحة التحكم بعد ثانية
-                    setTimeout(() => {
-                        window.location.href = 'dashboard.html';
-                    }, 1000);
-                } else {
-                    // فشل تسجيل الدخول
-                    showError('اسم المستخدم أو كلمة المرور غير صحيحة');
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                }
-            }, 1500);
+                // تحويل للوحة التحكم
+                window.location.href = 'dashboard.html';
+            } else {
+                showError('اسم المستخدم أو كلمة المرور غير صحيحة');
+            }
         });
 
-        // التحقق إذا كان المستخدم مسجل دخول بالفعل
-        function checkExistingLogin() {
-            const session = localStorage.getItem('sudanPlayAdmin');
-            if (session) {
-                const userData = JSON.parse(session);
-                // إذا كان مسجل دخول، نقله مباشرة للوحة التحكم
+        // إذا كان مسجل دخول بالفعل، احوله مباشرة
+        window.addEventListener('load', function() {
+            const existingSession = localStorage.getItem('sudanPlayAdmin');
+            if (existingSession) {
                 window.location.href = 'dashboard.html';
             }
-        }
-
-        // تهيئة الصفحة
-        document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
-            checkExistingLogin();
-            
-            // إضافة تأثيرات للعناصر
-            const inputs = document.querySelectorAll('.form-control');
-            inputs.forEach(input => {
-                input.addEventListener('focus', function() {
-                    this.parentElement.style.transform = 'scale(1.02)';
-                });
-                
-                input.addEventListener('blur', function() {
-                    this.parentElement.style.transform = 'scale(1)';
-                });
-            });
-            
-            // إدخال تجريبي للاختبار
-            document.getElementById('username').value = 'admin';
-            document.getElementById('password').value = 'admin123';
         });
     </script>
 </body>

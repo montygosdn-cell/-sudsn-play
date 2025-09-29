@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول - Sudan Play</title>
+    <title>Sudan Play - متجر التطبيقات السوداني</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -29,479 +29,848 @@
             background: var(--light);
             color: var(--dark);
             line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
-        .login-container {
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .login-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: var(--shadow-hover);
-            text-align: center;
+        /* الهيدر */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            color: var(--dark);
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
             transition: all 0.3s ease;
         }
 
-        .login-card:hover {
-            transform: translateY(-5px);
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
         }
 
         .logo {
-            margin-bottom: 2rem;
-        }
-
-        .logo h1 {
-            font-size: 2rem;
+            font-size: 1.8rem;
+            font-weight: bold;
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
         }
 
-        .logo p {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-            text-align: right;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--dark);
-        }
-
-        .input-with-icon {
-            position: relative;
-        }
-
-        .input-with-icon i {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #999;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 1rem 1rem 1rem 3rem;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s;
-            background: #f8f9fa;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            background: white;
-            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.1);
-        }
-
-        .btn {
-            width: 100%;
-            padding: 1rem;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
+        .nav-links {
             display: flex;
+            list-style: none;
+            gap: 2rem;
             align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
         }
 
-        .btn-primary {
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            background: var(--gradient-light);
+            color: var(--primary);
+        }
+
+        .admin-btn {
             background: var(--gradient);
-            color: white;
-            box-shadow: var(--shadow);
+            color: white !important;
+            padding: 0.5rem 1.5rem !important;
         }
 
-        .btn-primary:hover {
+        .admin-btn:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-hover);
         }
 
-        .btn-secondary {
-            background: #f8f9fa;
-            color: var(--dark);
-            border: 2px solid #e9ecef;
-            margin-top: 1rem;
-        }
-
-        .btn-secondary:hover {
-            background: #e9ecef;
-        }
-
-        .forgot-password {
+        /* الهيرو سيكشن */
+        .hero {
+            background: linear-gradient(rgba(30, 30, 45, 0.85), rgba(30, 30, 45, 0.9)), 
+                        url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 8rem 2rem;
             text-align: center;
-            margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
         }
 
-        .forgot-password a {
-            color: var(--primary);
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient);
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 1.2rem 2.5rem;
             text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* قسم التطبيقات */
+        .apps-section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 4rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 5px;
+            background: var(--gradient);
+            margin: 1rem auto;
+            border-radius: 5px;
+        }
+
+        /* فئات التطبيقات */
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            background: white;
+            border: 2px solid rgba(74, 107, 255, 0.1);
+            padding: 0.8rem 1.8rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            color: var(--dark);
+            box-shadow: var(--shadow);
+        }
+
+        .category-btn.active,
+        .category-btn:hover {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .app-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+            position: relative;
+            border: 1px solid rgba(74, 107, 255, 0.05);
+        }
+
+        .app-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .app-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .app-card:hover .app-image {
+            transform: scale(1.05);
+        }
+
+        .app-content {
+            padding: 2rem;
+        }
+
+        .app-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .app-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            object-fit: cover;
+            border: 3px solid white;
+            box-shadow: var(--shadow);
+        }
+
+        .app-title {
+            flex: 1;
+        }
+
+        .app-title h3 {
+            margin: 0 0 0.5rem 0;
+            color: var(--dark);
+            font-size: 1.4rem;
+        }
+
+        .app-category {
+            background: var(--gradient);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .app-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .app-screenshots {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .screenshot {
+            width: 90px;
+            height: 90px;
+            border-radius: 12px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .screenshot:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .app-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .download-btn {
+            background: var(--gradient);
+            color: white;
+            padding: 0.9rem 1.8rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .app-meta {
+            display: flex;
+            gap: 1.2rem;
+            color: #666;
             font-size: 0.9rem;
         }
 
-        .forgot-password a:hover {
-            text-decoration: underline;
+        .app-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
         }
 
-        .alert {
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 1.5rem;
-            display: none;
+        /* قسم المميزات */
+        .features {
+            background: var(--light);
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
         }
 
-        .alert-error {
-            background: #fee;
-            color: #c33;
-            border: 1px solid #fcc;
-        }
-
-        .alert-success {
-            background: #efe;
-            color: #363;
-            border: 1px solid #cfc;
-        }
-
-        .login-footer {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #e9ecef;
-            color: #666;
-            font-size: 0.8rem;
-        }
-
-        .language-switcher {
+        .features::before {
+            content: '';
             position: absolute;
-            top: 1rem;
-            left: 1rem;
-        }
-
-        .lang-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s;
-        }
-
-        .lang-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        @media (max-width: 480px) {
-            .login-card {
-                padding: 2rem 1.5rem;
-            }
-            
-            .logo h1 {
-                font-size: 1.5rem;
-            }
-        }
-
-        /* تأثيرات إضافية */
-        .particles {
-            position: fixed;
             top: 0;
             left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+            font-size: 1.4rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* الفوتر */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-content p {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+
+        .company-info {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links a:hover {
+            background: var(--gradient);
+            transform: translateY(-5px);
+        }
+
+        /* Modal للصورة الكبيرة */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            background: rgba(0,0,0,0.9);
+            animation: fadeIn 0.3s;
         }
 
-        .particle {
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            margin-top: 2%;
+            border-radius: 10px;
+            animation: zoomIn 0.3s;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-modal {
             position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: float 6s infinite ease-in-out;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+        .close-modal:hover {
+            color: var(--secondary);
+        }
+
+        /* شريط التمرير المخصص */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero {
+                padding: 5rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .app-stats {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            
+            .app-meta {
+                width: 100%;
+                justify-content: space-between;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- زر تغيير اللغة -->
-    <div class="language-switcher">
-        <button class="lang-btn" onclick="toggleLanguage()">
-            <i class="fas fa-globe"></i> English
-        </button>
-    </div>
-
-    <!-- تأثيرات الخلفية -->
-    <div class="particles" id="particles"></div>
-
-    <div class="login-container">
-        <div class="login-card">
+    <!-- الهيدر -->
+    <header>
+        <nav class="nav-container">
             <div class="logo">
-                <h1><i class="fas fa-mobile-alt"></i> Sudan Play</h1>
-                <p>لوحة تحكم متجر التطبيقات</p>
+                <h2><i class="fas fa-mobile-alt"></i> Sudan Play</h2>
             </div>
+            <ul class="nav-links">
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#apps">التطبيقات</a></li>
+                <li><a href="#features">المميزات</a></li>
+                <li><a href="#contact">اتصل بنا</a></li>
+                <li><a href="dashboard.html" class="admin-btn">
+                    <i class="fas fa-tachometer-alt"></i> لوحة التحكم
+                </a></li>
+            </ul>
+        </nav>
+    </header>
 
-            <div class="alert alert-error" id="errorAlert">
-                <i class="fas fa-exclamation-circle"></i>
-                <span id="errorMessage">اسم المستخدم أو كلمة المرور غير صحيحة</span>
+    <!-- الهيرو سيكشن -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>اكتشف عالم التطبيقات السودانية</h1>
+            <p>منصة Sudan Play تقدم لك أفضل التطبيقات المحلية المصممة خصيصاً لمجتمعنا السوداني. حمّل واستمتع بتجربة فريدة</p>
+            <a href="#apps" class="cta-button">
+                <i class="fas fa-rocket"></i> ابدأ التصفح الآن
+            </a>
+        </div>
+    </section>
+
+    <!-- قسم التطبيقات -->
+    <section class="apps-section" id="apps">
+        <h2 class="section-title">تطبيقاتنا المميزة</h2>
+        
+        <!-- فئات التطبيقات -->
+        <div class="categories">
+            <button class="category-btn active" onclick="filterApps('all')">جميع التطبيقات</button>
+            <button class="category-btn" onclick="filterApps('أخبار')">أخبار</button>
+            <button class="category-btn" onclick="filterApps('موسيقى')">موسيقى</button>
+            <button class="category-btn" onclick="filterApps('تسوق')">تسوق</button>
+            <button class="category-btn" onclick="filterApps('تعليم')">تعليم</button>
+        </div>
+
+        <div class="apps-grid" id="appsContainer">
+            <!-- التطبيقات تظهر هنا -->
+        </div>
+    </section>
+
+    <!-- قسم المميزات -->
+    <section class="features" id="features">
+        <h2 class="section-title">لماذا تختار Sudan Play؟</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>آمن ومضمون</h3>
+                <p>جميع التطبيقات خاضعة لفحص دقيق لضمان أمانها وسلامتها</p>
             </div>
-
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="username">اسم المستخدم</label>
-                    <div class="input-with-icon">
-                        <i class="fas fa-user"></i>
-                        <input type="text" id="username" class="form-control" placeholder="أدخل اسم المستخدم" required>
-                    </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
                 </div>
-
-                <div class="form-group">
-                    <label for="password">كلمة المرور</label>
-                    <div class="input-with-icon">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" id="password" class="form-control" placeholder="أدخل كلمة المرور" required>
-                    </div>
+                <h3>تحميل سريع</h3>
+                <p>خوادم سريعة تضمن تحميل التطبيقات بأقصى سرعة ممكنة</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-star"></i>
                 </div>
-
-                <div class="forgot-password">
-                    <a href="#" onclick="forgotPassword()">نسيت كلمة المرور؟</a>
+                <h3>جودة عالية</h3>
+                <p>تطبيقات عالية الجودة مصممة خصيصاً للمستخدم السوداني</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-headset"></i>
                 </div>
+                <h3>دعم فني</h3>
+                <p>فريق دعم فني متاح لمساعدتك في أي وقت</p>
+            </div>
+        </div>
+    </section>
 
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-sign-in-alt"></i>
-                    تسجيل الدخول
-                </button>
-
-                <button type="button" class="btn btn-secondary" onclick="goToHome()">
-                    <i class="fas fa-home"></i>
-                    العودة للرئيسية
-                </button>
-            </form>
-
-            <div class="login-footer">
-                <p>© 2024 Sudan Play. جميع الحقوق محفوظة</p>
-                <p style="margin-top: 0.5rem; font-size: 0.7rem; opacity: 0.7;">
-                    Monty Go SDN -Co-Ltd
+    <!-- الفوتر -->
+    <footer id="contact">
+        <div class="footer-content">
+            <h3><i class="fas fa-globe-africa"></i> Sudan Play</h3>
+            <p>منصة التطبيقات السودانية الرائدة - نوفر أفضل التجارب الرقمية لمجتمعنا</p>
+            
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-telegram"></i></a>
+            </div>
+            
+            <div class="company-info">
+                <p>© 2024 جميع الحقوق محفوظة لشركة Sudan Play</p>
+                <p style="margin-top: 0.5rem; font-weight: bold; font-size: 1.1rem;">
+                    <i class="fas fa-building"></i> Monty Go SDN -Co-Ltd
+                </p>
+                <p style="margin-top: 0.5rem;">
+                    <i class="fas fa-envelope"></i> info@sudanplay.com | 
+                    <i class="fas fa-phone"></i> 249127432167+
                 </p>
             </div>
         </div>
+    </footer>
+
+    <!-- Modal للصورة الكبيرة -->
+    <div id="imageModal" class="modal">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
     </div>
 
     <script>
-        // إنشاء تأثيرات الجسيمات
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 15;
+        // دالة تحميل التطبيقات من localStorage
+        function loadApps(category = 'all') {
+            const container = document.getElementById('appsContainer');
             
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                // أحجام وألوان عشوائية
-                const size = Math.random() * 60 + 10;
-                const opacity = Math.random() * 0.3 + 0.1;
-                const left = Math.random() * 100;
-                const top = Math.random() * 100;
-                const delay = Math.random() * 5;
-                
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${left}%`;
-                particle.style.top = `${top}%`;
-                particle.style.opacity = opacity;
-                particle.style.animationDelay = `${delay}s`;
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
-
-        // بيانات المستخدمين المسموح لهم
-        const allowedUsers = [
-            { username: "admin", password: "admin123", name: "مدير النظام" },
-            { username: "moderator", password: "mod123", name: "مشرف المحتوى" },
-            { username: "editor", password: "edit123", name: "محرر" }
-        ];
-
-        // عرض/إخفاء رسالة الخطأ
-        function showError(message) {
-            const errorAlert = document.getElementById('errorAlert');
-            const errorMessage = document.getElementById('errorMessage');
+            // جلب التطبيقات من localStorage
+            const storedApps = JSON.parse(localStorage.getItem('sudanPlayApps')) || [];
             
-            errorMessage.textContent = message;
-            errorAlert.style.display = 'block';
+            const filteredApps = category === 'all' ? storedApps : storedApps.filter(app => app.category === category);
             
-            setTimeout(() => {
-                errorAlert.style.display = 'none';
-            }, 5000);
-        }
-
-        // التحقق من بيانات الدخول
-        function validateLogin(username, password) {
-            return allowedUsers.find(user => 
-                user.username === username && user.password === password
-            );
-        }
-
-        // حفظ حالة تسجيل الدخول
-        function setLoginSession(user) {
-            const session = {
-                loggedIn: true,
-                username: user.username,
-                name: user.name,
-                loginTime: new Date().toISOString()
-            };
-            localStorage.setItem('sudanPlayAdmin', JSON.stringify(session));
-        }
-
-        // نسيت كلمة المرور
-        function forgotPassword() {
-            alert('لإعادة تعيين كلمة المرور، يرجى التواصل مع مدير النظام على: admin@sudanplay.com');
-        }
-
-        // الذهاب للصفحة الرئيسية
-        function goToHome() {
-            window.location.href = 'index.html';
-        }
-
-        // تبديل اللغة
-        function toggleLanguage() {
-            const currentLang = document.documentElement.lang;
-            if (currentLang === 'ar') {
-                // التبديل للإنجليزية
-                document.documentElement.lang = 'en';
-                document.documentElement.dir = 'ltr';
-                document.title = 'Login - Sudan Play';
-                document.querySelector('.logo h1').innerHTML = '<i class="fas fa-mobile-alt"></i> Sudan Play';
-                document.querySelector('.logo p').textContent = 'Apps Store Dashboard';
-                document.querySelector('label[for="username"]').textContent = 'Username';
-                document.querySelector('label[for="password"]').textContent = 'Password';
-                document.querySelector('#username').placeholder = 'Enter your username';
-                document.querySelector('#password').placeholder = 'Enter your password';
-                document.querySelector('.forgot-password a').textContent = 'Forgot Password?';
-                document.querySelector('.btn-primary').innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
-                document.querySelector('.btn-secondary').innerHTML = '<i class="fas fa-home"></i> Back to Home';
-                document.querySelector('.login-footer p').textContent = '© 2024 Sudan Play. All rights reserved';
-                document.querySelector('.lang-btn').innerHTML = '<i class="fas fa-globe"></i> العربية';
-                document.querySelector('#errorMessage').textContent = 'Invalid username or password';
-            } else {
-                // التبديل للعربية
-                document.documentElement.lang = 'ar';
-                document.documentElement.dir = 'rtl';
-                location.reload();
-            }
-        }
-
-        // التحقق من تسجيل الدخول الناجح
-        function checkLoginSuccess() {
-            const session = localStorage.getItem('sudanPlayAdmin');
-            if (session) {
-                window.location.href = 'dashboard.html';
-            }
-        }
-
-        // معالجة تسجيل الدخول
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
-            
-            // إخفاء رسالة الخطأ السابقة
-            document.getElementById('errorAlert').style.display = 'none';
-            
-            // التحقق من الحقول الفارغة
-            if (!username || !password) {
-                showError('يرجى ملء جميع الحقول المطلوبة');
+            if (filteredApps.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #666;">
+                        <i class="fas fa-mobile-alt" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                        <p>لا توجد تطبيقات متاحة في هذه الفئة</p>
+                    </div>
+                `;
                 return;
             }
             
-            // محاكاة التحميل
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحقق...';
-            submitBtn.disabled = true;
+            container.innerHTML = filteredApps.map(app => `
+                <div class="app-card">
+                    <img src="${app.icon}" alt="${app.name}" class="app-image" onerror="this.src='https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=200&fit=crop'">
+                    <div class="app-content">
+                        <div class="app-header">
+                            <img src="${app.icon}" alt="${app.name}" class="app-icon" onerror="this.src='https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=200&h=200&fit=crop'">
+                            <div class="app-title">
+                                <h3>${app.name}</h3>
+                                <span class="app-category">${app.category}</span>
+                            </div>
+                        </div>
+                        
+                        <p class="app-description">${app.description}</p>
+                        
+                        ${app.screenshots && app.screenshots.length > 0 ? `
+                            <div class="app-screenshots">
+                                ${app.screenshots.map(screenshot => `
+                                    <img src="${screenshot}" alt="لقطة شاشة" class="screenshot" onclick="openModal('${screenshot}')" onerror="this.style.display='none'">
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                        
+                        <div class="app-stats">
+                            <div class="app-meta">
+                                <span><i class="fas fa-download"></i> ${app.downloads.toLocaleString()}</span>
+                                <span><i class="fas fa-star"></i> ${app.rating}</span>
+                                <span>${app.size}</span>
+                            </div>
+                            <button class="download-btn" onclick="downloadApp(${app.id})">
+                                <i class="fas fa-download"></i> تحميل
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // دالة تصفية التطبيقات
+        function filterApps(category) {
+            // تحديث الأزرار النشطة
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
             
-            // محاكاة وقت التحقق
-            setTimeout(() => {
-                const user = validateLogin(username, password);
+            // تحميل التطبيقات المصفاة
+            loadApps(category);
+        }
+
+        // دالة التحميل
+        function downloadApp(appId) {
+            const storedApps = JSON.parse(localStorage.getItem('sudanPlayApps')) || [];
+            const app = storedApps.find(a => a.id == appId);
+            
+            if (app) {
+                // محاكاة عملية التحميل
+                const originalText = event.target.innerHTML;
+                event.target.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحميل...';
+                event.target.disabled = true;
                 
-                if (user) {
-                    // تسجيل الدخول ناجح
-                    setLoginSession(user);
+                setTimeout(() => {
+                    event.target.innerHTML = '<i class="fas fa-check"></i> تم التحميل';
                     
-                    // عرض رسالة النجاح
-                    submitBtn.innerHTML = '<i class="fas fa-check"></i> تم التسجيل بنجاح!';
-                    submitBtn.style.background = 'linear-gradient(135deg, #28a745 0%, #20c997 100%)';
-                    
-                    // الانتقال للوحة التحكم بعد ثانية
                     setTimeout(() => {
-                        window.location.href = 'dashboard.html';
+                        event.target.innerHTML = originalText;
+                        event.target.disabled = false;
+                        
+                        // إذا كان هناك رابط تحميل، افتحه
+                        if (app.downloadUrl && app.downloadUrl !== '#') {
+                            window.open(app.downloadUrl, '_blank');
+                        } else {
+                            alert(`تم تحميل ${app.name} بنجاح!\n\nسيتم تثبيت التطبيق على جهازك.`);
+                        }
                     }, 1000);
-                } else {
-                    // فشل تسجيل الدخول
-                    showError('اسم المستخدم أو كلمة المرور غير صحيحة');
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                }
-            }, 1500);
-        });
+                }, 2000);
+            }
+        }
+
+        // دالة فتح الصورة في modal
+        function openModal(imageUrl) {
+            document.getElementById('modalImage').src = imageUrl;
+            document.getElementById('imageModal').style.display = 'block';
+        }
+
+        // دالة إغلاق modal
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
 
         // عند تحميل الصفحة
         document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
-            checkLoginSuccess();
+            loadApps();
             
-            // إضافة تأثيرات للعناصر
-            const inputs = document.querySelectorAll('.form-control');
-            inputs.forEach(input => {
-                input.addEventListener('focus', function() {
-                    this.parentElement.style.transform = 'scale(1.02)';
-                });
-                
-                input.addEventListener('blur', function() {
-                    this.parentElement.style.transform = 'scale(1)';
+            // إضافة تأثيرات للروابط
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
                 });
             });
-            
-            // إدخال تجريبي للاختبار
-            document.getElementById('username').value = 'admin';
-            document.getElementById('password').value = 'admin123';
         });
 
-        // إضافة تأثيرات كتابة للأحرف
-        document.addEventListener('keydown', function(e) {
-            if (e.target.type === 'password') {
-                const input = e.target;
-                input.style.letterSpacing = '2px';
-                setTimeout(() => {
-                    input.style.letterSpacing = 'normal';
-                }, 100);
+        // إغلاق modal عند النقر خارج الصورة
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target === modal) {
+                closeModal();
             }
-        });
+        }
     </script>
 </body>
 </html>

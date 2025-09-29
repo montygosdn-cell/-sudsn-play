@@ -6,6 +6,7 @@
     <title>لوحة تحكم Sudan Play</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* (احتفظ بجميع أكواد CSS كما هي) */
         * {
             margin: 0;
             padding: 0;
@@ -27,7 +28,7 @@
         body {
             background-color: var(--light);
             color: var(--dark);
-            padding-top: 70px; /* مسافة للـ header الثابت */
+            padding-top: 70px;
         }
 
         .header {
@@ -89,7 +90,6 @@
             border-radius: 2px;
         }
 
-        /* تنسيق نموذج إضافة التطبيق */
         .app-form {
             background-color: white;
             padding: 30px;
@@ -152,7 +152,6 @@
             transform: translateY(-2px);
         }
 
-        /* تنسيق قائمة التطبيقات */
         .app-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -249,12 +248,12 @@
             <h3>إضافة/تعديل تطبيق</h3>
             <form id="appForm">
                 <div class="form-group">
-                    <label for="appName">اسم التطبيق *</label>
+                    <label for="appName">اسم التطبيق </label>
                     <input type="text" id="appName" class="form-control" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="appCategory">الفئة *</label>
+                    <label for="appCategory">الفئة </label>
                     <select id="appCategory" class="form-select" required>
                         <option value="ألعاب">ألعاب</option>
                         <option value="أخبار">أخبار</option>
@@ -266,43 +265,43 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="appVersion">الإصدار *</label>
+                    <label for="appVersion">الإصدار </label>
                     <input type="text" id="appVersion" class="form-control" value="1.0.0" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="appSize">الحجم (ميغابايت) *</label>
+                    <label for="appSize">الحجم (ميغابايت) </label>
                     <input type="number" id="appSize" class="form-control" step="0.1" min="0.1" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="appRating">التقييم (1-5) *</label>
+                    <label for="appRating">التقييم (1-5) </label>
                     <input type="number" id="appRating" class="form-control" step="0.1" min="1" max="5" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="appDownloads">عدد التحميلات (مبدئي) *</label>
+                    <label for="appDownloads">عدد التحميلات (مبدئي) </label>
                     <input type="number" id="appDownloads" class="form-control" min="0" value="0" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="appIconPath">مسار أيقونة التطبيق (URL/Path) *</label>
+                    <label for="appIconPath">مسار أيقونة التطبيق (URL/Path) </label>
                     <input type="text" id="appIconPath" class="form-control" value="https://via.placeholder.com/60/4a6bff/ffffff?text=Icon" required>
                     <small class="image-paths-info">مثال: images/my-icon.png أو رابط مباشر.</small>
                 </div>
                 
                 <div class="form-group">
-                    <label for="appCoverPath">مسار صورة الغلاف (URL/Path) *</label>
+                    <label for="appCoverPath">مسار صورة الغلاف (URL/Path) </label>
                     <input type="text" id="appCoverPath" class="form-control" value="https://via.placeholder.com/300x150/4a6bff/ffffff?text=Cover" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="appScreenshotsPaths">مسارات لقطات الشاشة (URLs مفصولة بفواصل) *</label>
+                    <label for="appScreenshotsPaths">مسارات لقطات الشاشة (URLs مفصولة بفواصل) </label>
                     <textarea id="appScreenshotsPaths" class="form-control" rows="3" required>https://via.placeholder.com/150x250/ccc/333?text=SS1, https://via.placeholder.com/150x250/ddd/333?text=SS2</textarea>
                     <small class="image-paths-info">افصل بين الروابط باستخدام فاصلة (مثال: path1, path2, path3)</small>
                 </div>
                 <div class="form-group">
-                    <label for="appDescription">الوصف *</label>
+                    <label for="appDescription">الوصف </label>
                     <textarea id="appDescription" class="form-control" rows="4" required></textarea>
                 </div>
                 
@@ -318,71 +317,95 @@
             </div>
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+
     <script>
-        // دالة تسجيل الخروج (المسار الجديد: login.html)
+      const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+        databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_PROJECT_ID.appspot.com",
+        messagingSenderId: "YOUR_SENDER_ID",
+        appId: "YOUR_APP_ID"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      // تعريف متغير لقاعدة البيانات
+      const database = firebase.database();
+    </script>
+    
+    <script>
+        // دالة تسجيل الخروج
         function logout() {
             localStorage.removeItem('sudanPlayAdmin');
             window.location.href = 'login.html';
         }
 
-        // دالة التحقق من تسجيل الدخول (المسار الجديد: login.html)
+        // دالة التحقق من تسجيل الدخول
         function checkLogin() {
             const session = localStorage.getItem('sudanPlayAdmin');
             if (!session) {
                 window.location.href = 'login.html'; 
             }
         }
-
-        // دوال مساعدة لـ localStorage لإدارة بيانات التطبيقات
-        function getApps() {
-            const appsJson = localStorage.getItem('sudanPlayApps');
-            return appsJson ? JSON.parse(appsJson) : [];
-        }
-
-        function saveApps(apps) {
-            localStorage.setItem('sudanPlayApps', JSON.stringify(apps));
-        }
-
-        // دالة لإضافة تطبيق جديد
-        function addApp(formData) {
-            const apps = getApps();
-            const newId = apps.length > 0 ? Math.max(...apps.map(a => a.id)) + 1 : 1;
-            
-            // تحويل مسارات لقطات الشاشة إلى مصفوفة نظيفة
-            const screenshotsArray = formData.screenshotsPaths.split(',').map(s => s.trim()).filter(s => s.length > 0);
-
-            const newApp = { 
-                id: newId, 
+        
+        // ** دوال Firebase الجديدة **
+        
+        // دالة إضافة/تعديل تطبيق
+        function saveAppToFirebase(formData, key) {
+             const screenshotsArray = formData.screenshotsPaths.split(',').map(s => s.trim()).filter(s => s.length > 0);
+             
+             // تجهيز بيانات التطبيق
+             const appData = {
+                name: formData.name,
+                category: formData.category,
+                version: formData.version,
                 size: parseFloat(formData.size) || 0,
                 rating: parseFloat(formData.rating) || 0,
                 downloads: parseInt(formData.downloads) || 0,
-                icon: formData.iconPath, 
-                cover: formData.coverPath, 
-                screenshots: screenshotsArray, 
-                ...formData, 
+                description: formData.description,
+                icon: formData.iconPath,
+                cover: formData.coverPath,
+                screenshots: screenshotsArray,
+                // يمكنك إضافة حقل لتاريخ النشر
+                timestamp: firebase.database.ServerValue.TIMESTAMP 
             };
-            apps.push(newApp);
-            saveApps(apps);
+            
+            // استخدام المفتاح (key) للتعديل، أو push لإضافة سجل جديد
+            const appRef = key ? database.ref('apps/' + key) : database.ref('apps').push();
+            
+            appRef.set(appData)
+                .then(() => {
+                    alert(key ? '✅ تم تعديل التطبيق بنجاح!' : '✅ تم إضافة التطبيق بنجاح!');
+                    resetForm();
+                })
+                .catch(error => {
+                    alert('❌ خطأ في عملية الحفظ: ' + error.message);
+                    console.error(error);
+                });
         }
-
-        // تعديل دالة عرض التطبيقات لتقرأ من localStorage
-        function renderApps() {
-            const apps = getApps();
+        
+        // دالة عرض التطبيقات (سماع التغييرات)
+        function renderApps(appsObject) {
             const appList = document.getElementById('appList');
             if (!appList) return;
             
             appList.innerHTML = '';
             
-            if (apps.length === 0) {
-                appList.innerHTML = '<p style="text-align: center; padding: 20px; color: #555;">لا توجد تطبيقات حاليًا. أضف تطبيقًا جديدًا!</p>';
+            if (!appsObject) {
+                 appList.innerHTML = '<p style="text-align: center; padding: 20px; color: #555;">لا توجد تطبيقات حاليًا. أضف تطبيقًا جديدًا!</p>';
                 return;
             }
+
+            // تحويل الكائن إلى مصفوفة (مع الاحتفاظ بالمفتاح)
+            const apps = Object.entries(appsObject).map(([key, app]) => ({ key, ...app }));
 
             apps.forEach(app => {
                 const appCard = document.createElement('div');
                 appCard.classList.add('app-card');
                 
-                // استخدام مسار الأيقونة مع مسار احتياطي آمن
                 const iconSrc = app.icon || 'https://via.placeholder.com/50/000/fff?text=Icon';
 
                 appCard.innerHTML = `
@@ -398,69 +421,75 @@
                         <p><strong>التحميلات:</strong> ${app.downloads || 0}</p>
                     </div>
                     <div class="app-actions">
-                        <button onclick="editApp(${app.id})" class="btn edit-btn"><i class="fas fa-edit"></i> تعديل</button>
-                        <button onclick="deleteApp(${app.id})" class="btn delete-btn"><i class="fas fa-trash"></i> حذف</button>
+                        <button onclick="editApp('${app.key}')" class="btn edit-btn"><i class="fas fa-edit"></i> تعديل</button>
+                        <button onclick="deleteApp('${app.key}')" class="btn delete-btn"><i class="fas fa-trash"></i> حذف</button>
                     </div>
                 `;
                 appList.appendChild(appCard);
             });
         }
 
-        // وظيفة ملء النموذج للتعديل
-        function editApp(id) {
-            const apps = getApps();
-            const app = apps.find(a => a.id === id);
-            
-            if (app) {
-                document.getElementById('appName').value = app.name || '';
-                document.getElementById('appCategory').value = app.category || 'ألعاب';
-                document.getElementById('appVersion').value = app.version || '1.0.0';
-                document.getElementById('appSize').value = app.size || ''; 
-                document.getElementById('appRating').value = app.rating || '';
-                document.getElementById('appDownloads').value = app.downloads || '';
-                document.getElementById('appDescription').value = app.description || '';
-                
-                // ملء حقول مسارات الصور الجديدة
-                document.getElementById('appIconPath').value = app.icon || '';
-                document.getElementById('appCoverPath').value = app.cover || '';
-                // تحويل مصفوفة لقطات الشاشة إلى نص مفصول بفواصل
-                document.getElementById('appScreenshotsPaths').value = (Array.isArray(app.screenshots) ? app.screenshots.join(', ') : '');
+        // وظيفة ملء النموذج للتعديل (جلب التطبيق بمفتاحه)
+        function editApp(key) {
+            database.ref('apps/' + key).once('value')
+                .then(snapshot => {
+                    const app = snapshot.val();
+                    if (app) {
+                        document.getElementById('appName').value = app.name || '';
+                        document.getElementById('appCategory').value = app.category || 'ألعاب';
+                        document.getElementById('appVersion').value = app.version || '1.0.0';
+                        document.getElementById('appSize').value = app.size || ''; 
+                        document.getElementById('appRating').value = app.rating || '';
+                        document.getElementById('appDownloads').value = app.downloads || '';
+                        document.getElementById('appDescription').value = app.description || '';
+                        
+                        document.getElementById('appIconPath').value = app.icon || '';
+                        document.getElementById('appCoverPath').value = app.cover || '';
+                        document.getElementById('appScreenshotsPaths').value = (Array.isArray(app.screenshots) ? app.screenshots.join(', ') : '');
 
-                document.getElementById('appForm').dataset.editingId = app.id;
-                document.getElementById('submitBtn').textContent = 'حفظ التعديلات';
-                
-                document.querySelector('.app-form').scrollIntoView({ behavior: 'smooth' });
-            }
+                        document.getElementById('appForm').dataset.editingKey = key; // استخدام editingKey
+                        document.getElementById('submitBtn').textContent = 'حفظ التعديلات';
+                        
+                        document.querySelector('.app-form').scrollIntoView({ behavior: 'smooth' });
+                    }
+                })
+                .catch(error => {
+                    alert('❌ خطأ في جلب بيانات التطبيق للتعديل: ' + error.message);
+                    console.error(error);
+                });
         }
 
-        // وظيفة الحذف
-        function deleteApp(id) {
+        // وظيفة الحذف (باستخدام مفتاح التطبيق)
+        function deleteApp(key) {
             if (confirm('هل أنت متأكد من حذف هذا التطبيق؟')) {
-                let apps = getApps();
-                const index = apps.findIndex(a => a.id === id);
-                if (index !== -1) {
-                    apps.splice(index, 1);
-                    saveApps(apps); 
-                    renderApps();
-                    alert('تم حذف التطبيق بنجاح!');
-                }
+                database.ref('apps/' + key).remove()
+                    .then(() => {
+                        alert('✅ تم حذف التطبيق بنجاح!');
+                    })
+                    .catch(error => {
+                        alert('❌ خطأ في عملية الحذف: ' + error.message);
+                        console.error(error);
+                    });
             }
         }
 
         // تهيئة الصفحة ومعالجة إرسال النموذج
         document.addEventListener('DOMContentLoaded', function() {
             checkLogin(); 
-            renderApps();
             
+            // الاستماع للتغييرات على قاعدة البيانات وتحديث القائمة تلقائياً
+            database.ref('apps').on('value', (snapshot) => {
+                renderApps(snapshot.val());
+            });
+
             const appForm = document.getElementById('appForm');
             const submitBtn = document.getElementById('submitBtn');
             const resetButton = document.querySelector('button[type="reset"]');
 
-            function resetForm() {
+            window.resetForm = function() { // جعلها عالمية ليمكن استخدامها في saveAppToFirebase
                 appForm.reset();
-                delete appForm.dataset.editingId;
+                delete appForm.dataset.editingKey;
                 submitBtn.textContent = 'إضافة التطبيق';
-                // إعادة تعيين مسارات الصور للقيمة الافتراضية
                 document.getElementById('appIconPath').value = "https://via.placeholder.com/60/4a6bff/ffffff?text=Icon";
                 document.getElementById('appCoverPath').value = "https://via.placeholder.com/300x150/4a6bff/ffffff?text=Cover";
                 document.getElementById('appScreenshotsPaths').value = "https://via.placeholder.com/150x250/ccc/333?text=SS1, https://via.placeholder.com/150x250/ddd/333?text=SS2";
@@ -482,34 +511,9 @@
                     screenshotsPaths: document.getElementById('appScreenshotsPaths').value.trim(),
                 };
 
-                const editingId = appForm.dataset.editingId;
+                const editingKey = appForm.dataset.editingKey;
 
-                if (editingId) {
-                    let apps = getApps();
-                    const index = apps.findIndex(a => a.id == editingId);
-                    if (index !== -1) {
-                        // تحويل مسارات لقطات الشاشة إلى مصفوفة نظيفة
-                        const screenshotsArray = formData.screenshotsPaths.split(',').map(s => s.trim()).filter(s => s.length > 0);
-                        
-                        apps[index] = { ...apps[index], ...formData, 
-                            id: parseInt(editingId),
-                            size: parseFloat(formData.size) || 0,
-                            rating: parseFloat(formData.rating) || 0,
-                            downloads: parseInt(formData.downloads) || 0,
-                            icon: formData.iconPath, 
-                            cover: formData.coverPath, 
-                            screenshots: screenshotsArray, 
-                        };
-                        saveApps(apps);
-                        alert('تم تعديل التطبيق بنجاح!');
-                    }
-                } else {
-                    addApp(formData);
-                    alert('تم إضافة التطبيق بنجاح!');
-                }
-                
-                resetForm(); 
-                renderApps(); 
+                saveAppToFirebase(formData, editingKey);
             });
             
             if(resetButton) {

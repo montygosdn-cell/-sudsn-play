@@ -84,15 +84,9 @@
             color: var(--primary);
         }
 
+        /* إخفاء زر لوحة التحكم */
         .admin-btn {
-            background: var(--gradient);
-            color: white !important;
-            padding: 0.5rem 1.5rem !important;
-        }
-
-        .admin-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-hover);
+            display: none !important;
         }
 
         /* الهيرو سيكشن */
@@ -634,6 +628,7 @@
                 <li><a href="#apps">التطبيقات</a></li>
                 <li><a href="#features">المميزات</a></li>
                 <li><a href="#contact">اتصل بنا</a></li>
+                <!-- تم إخفاء زر لوحة التحكم -->
             </ul>
         </nav>
     </header>
@@ -660,6 +655,7 @@
             <button class="category-btn" onclick="filterApps('موسيقى')">موسيقى</button>
             <button class="category-btn" onclick="filterApps('تسوق')">تسوق</button>
             <button class="category-btn" onclick="filterApps('تعليم')">تعليم</button>
+            <button class="category-btn" onclick="filterApps('أدوات')">أدوات</button>
         </div>
 
         <div class="apps-grid" id="appsContainer">
@@ -735,12 +731,113 @@
     </div>
 
     <script>
-        // دالة تحميل التطبيقات من localStorage
+        // بيانات التطبيقات الافتراضية
+        const defaultApps = [
+            {
+                id: 1,
+                name: "سودان نيوز",
+                description: "تطبيق متكامل يقدم آخر الأخبار السودانية من مصادر موثوقة. احصل على التحديثات الفورية والأخبار العاجلة في جميع المجالات السياسية والاقتصادية والرياضية.",
+                category: "أخبار",
+                icon: "https://images.unsplash.com/photo-1586339949216-35c2747cc36c?w=200&h=200&fit=crop",
+                version: "2.1.0",
+                rating: "4.8",
+                downloads: 12543,
+                size: "15 MB",
+                screenshots: [
+                    "https://images.unsplash.com/photo-1556655848-f3a79cc6d4a9?w=300&h=600&fit=crop",
+                    "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=300&h=600&fit=crop"
+                ],
+                downloadUrl: "#"
+            },
+            {
+                id: 2, 
+                name: "سودان ميوزك",
+                description: "أكبر منصة موسيقية سودانية تحتوي على آلاف الأغاني من التراث السوداني والموسيقى المعاصرة. استمع وتحميل ومشاركة أفضل الألحان.",
+                category: "موسيقى",
+                icon: "https://images.unsplash.com/photo-1571974599782-87624638275f?w=200&h=200&fit=crop",
+                version: "1.5.2", 
+                rating: "4.9",
+                downloads: 28764,
+                size: "28 MB",
+                screenshots: [
+                    "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=300&h=600&fit=crop"
+                ],
+                downloadUrl: "#"
+            },
+            {
+                id: 3,
+                name: "سوق سوداني",
+                description: "منصة تسوق إلكتروني تتيح لك شراء وبيع المنتجات السودانية الأصيلة. تسوق من آلاف المتاجر المحلية بثقة وسهولة.",
+                category: "تسوق",
+                icon: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=200&h=200&fit=crop",
+                version: "3.0.1",
+                rating: "4.6",
+                downloads: 8943,
+                size: "42 MB",
+                screenshots: [
+                    "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=300&h=600&fit=crop",
+                    "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=300&h=600&fit=crop"
+                ],
+                downloadUrl: "#"
+            },
+            {
+                id: 4,
+                name: "تعلم العربية",
+                description: "تطبيق تعليمي مميز لتعليم اللغة العربية بأسلوب تفاعلي. مناسب لجميع الأعمال مع دروس متنوعة وتمارين تفاعلية.",
+                category: "تعليم",
+                icon: "https://images.unsplash.com/photo-1589998059171-988d887df646?w=200&h=200&fit=crop",
+                version: "1.2.3",
+                rating: "4.7",
+                downloads: 15632,
+                size: "35 MB",
+                screenshots: [
+                    "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=300&h=600&fit=crop"
+                ],
+                downloadUrl: "#"
+            },
+            {
+                id: 5,
+                name: "أدوات السودان",
+                description: "مجموعة متكاملة من الأدوات المحلية المفيدة للحياة اليومية في السودان. يحتوي على أدوات حسابية، محولات، وأدوات عملية.",
+                category: "أدوات",
+                icon: "https://images.unsplash.com/photo-1581093458791-8a6c6bc60d9a?w=200&h=200&fit=crop",
+                version: "1.8.0",
+                rating: "4.5",
+                downloads: 8765,
+                size: "22 MB",
+                screenshots: [
+                    "https://images.unsplash.com/photo-1581093458791-8a6c6bc60d9a?w=300&h=600&fit=crop"
+                ],
+                downloadUrl: "#"
+            },
+            {
+                id: 6,
+                name: "أخبار الرياضة",
+                description: "تابع آخر أخبار الرياضة السودانية والعالمية. تغطية شاملة للدوري السوداني وبطولات أفريقيا والعالم.",
+                category: "أخبار",
+                icon: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=200&h=200&fit=crop",
+                version: "2.0.5",
+                rating: "4.5",
+                downloads: 9876,
+                size: "22 MB",
+                screenshots: [
+                    "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=300&h=600&fit=crop"
+                ],
+                downloadUrl: "#"
+            }
+        ];
+
+        // دالة تحميل التطبيقات
         function loadApps(category = 'all') {
             const container = document.getElementById('appsContainer');
             
-            // جلب التطبيقات من localStorage
-            const storedApps = JSON.parse(localStorage.getItem('sudanPlayApps')) || [];
+            // جلب التطبيقات من localStorage أو استخدام البيانات الافتراضية
+            let storedApps = JSON.parse(localStorage.getItem('sudanPlayApps'));
+            
+            if (!storedApps || storedApps.length === 0) {
+                storedApps = defaultApps;
+                localStorage.setItem('sudanPlayApps', JSON.stringify(storedApps));
+            }
             
             const filteredApps = category === 'all' ? storedApps : storedApps.filter(app => app.category === category);
             
@@ -805,7 +902,7 @@
 
         // دالة التحميل
         function downloadApp(appId) {
-            const storedApps = JSON.parse(localStorage.getItem('sudanPlayApps')) || [];
+            const storedApps = JSON.parse(localStorage.getItem('sudanPlayApps')) || defaultApps;
             const app = storedApps.find(a => a.id == appId);
             
             if (app) {

@@ -224,6 +224,37 @@
                 window.location.href = 'dashboard.html';
             }
         });
-    </script>
+    </script><script>
+    // التحقق من تسجيل الدخول الناجح
+    function checkLoginSuccess() {
+        const session = localStorage.getItem('sudanPlayAdmin');
+        if (session) {
+            window.location.href = 'dashboard.html';
+        }
+    }
+
+    // عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+        createParticles();
+        checkLoginSuccess();
+        
+        // إضافة تأثيرات للعناصر
+        const inputs = document.querySelectorAll('.form-control');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+        
+        // إدخال تجريبي للاختبار
+        document.getElementById('username').value = 'admin';
+        document.getElementById('password').value = 'admin123';
+    });
+</script>
+    
 </body>
 </html>

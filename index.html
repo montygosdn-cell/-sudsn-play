@@ -6,6 +6,7 @@
     <title>Sudan Play - متجر التطبيقات السوداني</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* (احتفظ بجميع أكواد CSS كما هي) */
         * {
             margin: 0;
             padding: 0;
@@ -29,9 +30,6 @@
             color: var(--dark);
         }
 
-        /*====================
-        Header & Nav
-        ====================*/
         header {
             background-color: var(--dark);
             color: white;
@@ -81,9 +79,6 @@
             padding: 8px 15px;
         }
 
-        /*====================
-        Hero Section
-        ====================*/
         .hero {
             background: var(--gradient);
             color: white;
@@ -135,9 +130,6 @@
             background-color: rgb(50, 80, 200);
         }
 
-        /*====================
-        Main Content
-        ====================*/
         .main-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -150,7 +142,6 @@
             color: var(--dark);
         }
         
-        /* Categories */
         .categories {
             display: flex;
             flex-wrap: wrap;
@@ -181,7 +172,6 @@
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
         }
 
-        /* Apps List */
         .apps-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -315,9 +305,6 @@
             opacity: 0.9;
         }
         
-        /*====================
-        Contact Section
-        ====================*/
         #contact-us {
             padding: 60px 20px;
             background-color: #fff;
@@ -377,9 +364,6 @@
             text-decoration: none;
         }
 
-        /*====================
-        Footer
-        ====================*/
         .footer {
             background-color: var(--dark);
             color: white;
@@ -416,9 +400,6 @@
             color: var(--secondary);
         }
 
-        /*====================
-        Modals
-        ====================*/
         .modal {
             display: none; 
             position: fixed;
@@ -654,7 +635,7 @@
                     </div>
             </div>
             
-            <button class="modal-download-btn" id="modalDownloadButton" onclick="downloadApp(window.currentAppId)">
+            <button class="modal-download-btn" id="modalDownloadButton" onclick="downloadApp(window.currentAppKey)">
                 تحميل الآن <i class="fas fa-download"></i>
             </button>
         </div>
@@ -676,64 +657,59 @@
         <a href="login.html" class="footer-admin-link">Admin Login</a>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+
     <script>
-        // دوال مساعدة لـ localStorage
-        function saveApps(apps) {
-            localStorage.setItem('sudanPlayApps', JSON.stringify(apps));
-        }
+      const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+        databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_PROJECT_ID.appspot.com",
+        messagingSenderId: "YOUR_SENDER_ID",
+        appId: "YOUR_APP_ID"
+      };
 
-        function getApps() {
-            const appsJson = localStorage.getItem('sudanPlayApps');
-            // إذا لم يكن هناك بيانات (أول مرة)، قم بإنشاء بيانات تجريبية (باستخدام روابط صور خارجية لضمان ظهورها)
-            if (!appsJson) {
-                const initialApps = [
-                    { 
-                        id: 1, name: "تطبيق تجريبي 1", category: "ألعاب", version: "1.0.0", size: 50.5, rating: 4.5, downloads: 1000, 
-                        description: "هذا تطبيق تجريبي. يرجى حذفه وإضافة تطبيقك الخاص من لوحة التحكم.", 
-                        icon: "https://via.placeholder.com/60/4a6bff/ffffff?text=Game", 
-                        cover: "https://via.placeholder.com/300x150/4a6bff/ffffff?text=SUDAN+PLAY", 
-                        screenshots: ["https://via.placeholder.com/150x250/ccc/333?text=Screen1", "https://via.placeholder.com/150x250/ddd/333?text=Screen2"] 
-                    },
-                    { 
-                        id: 2, name: "تطبيق تجريبي 2", category: "أخبار", version: "2.1.0", size: 12.0, rating: 4.0, downloads: 500, 
-                        description: "تطبيق أخبار سريع وموثوق.", 
-                        icon: "https://via.placeholder.com/60/ff5e7d/ffffff?text=News", 
-                        cover: "https://via.placeholder.com/300x150/ff5e7d/ffffff?text=SUDAN+NEWS", 
-                        screenshots: ["https://via.placeholder.com/150x250/ccc/333?text=Screen3"] 
-                    }
-                ];
-                saveApps(initialApps); 
-                return initialApps;
-            }
-            return JSON.parse(appsJson);
-        }
-
-        // دالة تحميل وعرض التطبيقات من localStorage
-        function loadApps() {
-            const apps = getApps(); 
+      firebase.initializeApp(firebaseConfig);
+      // تعريف متغير لقاعدة البيانات
+      const database = firebase.database();
+      
+      // مصفوفة لتخزين التطبيقات التي تم جلبها
+      window.allApps = []; 
+    </script>
+    
+    <script>
+        // دالة تحميل وعرض التطبيقات من Firebase
+        function loadApps(appsObject) {
             const appsContainer = document.getElementById('apps-container');
             appsContainer.innerHTML = '';
-
-            if (apps.length === 0) {
-                appsContainer.innerHTML = '<p class="no-apps" style="grid-column: 1 / -1; text-align: center; padding: 20px; font-size: 1.2em; color: var(--secondary);">لا توجد تطبيقات متاحة حاليًا. يرجى إضافتها من لوحة التحكم.</p>';
+            
+            // تحويل الكائن إلى مصفوفة (مع الاحتفاظ بالمفتاح)
+            if (!appsObject) {
+                appsContainer.innerHTML = '<p class="no-apps" style="grid-column: 1 / -1; text-align: center; padding: 20px; font-size: 1.2em; color: var(--secondary);">لا توجد تطبيقات متاحة حاليًا.</p>';
+                window.allApps = [];
                 return;
             }
+            
+            const apps = Object.entries(appsObject).map(([key, app]) => ({ key, ...app }));
+            
+            // حفظ التطبيقات في متغير عام لاستخدامه في الفلترة والبحث
+            window.allApps = apps;
             
             apps.forEach(app => {
                 const appCard = document.createElement('div');
                 appCard.classList.add('app-card');
                 appCard.setAttribute('data-category', app.category);
                 
-                // حساب النجوم
-                const fullStars = Array(Math.floor(app.rating)).fill('<i class="fas fa-star filled"></i>').join('');
-                const emptyStars = Array(5 - Math.floor(app.rating)).fill('<i class="fas fa-star"></i>').join('');
+                const fullStars = Array(Math.floor(app.rating || 0)).fill('<i class="fas fa-star filled"></i>').join('');
+                const emptyStars = Array(5 - Math.floor(app.rating || 0)).fill('<i class="fas fa-star"></i>').join('');
                 
-                // استخدام روابط الصور المحفوظة مع رابط احتياطي لضمان عدم ظهور أخطاء
                 const iconSrc = app.icon || "https://via.placeholder.com/60/000/fff?text=Icon";
                 const coverSrc = app.cover || "https://via.placeholder.com/300x150/000/fff?text=No+Cover";
 
                 appCard.innerHTML = `
-                    <div class="app-cover" onclick="openDetailsModal(${app.id})">
+                    <div class="app-cover" onclick="openDetailsModal('${app.key}')">
                         <img src="${coverSrc}" alt="${app.name} Cover">
                         <div class="overlay">
                             <i class="fas fa-search-plus"></i>
@@ -742,7 +718,7 @@
                     <div class="app-info">
                         <img src="${iconSrc}" alt="${app.name} Icon" class="app-icon">
                         <div class="app-text">
-                            <h3 class="app-title" onclick="openDetailsModal(${app.id})">${app.name}</h3>
+                            <h3 class="app-title" onclick="openDetailsModal('${app.key}')">${app.name}</h3>
                             <p class="app-category">${app.category}</p>
                             <div class="app-rating">
                                 ${fullStars}
@@ -751,13 +727,15 @@
                             </div>
                         </div>
                     </div>
-                    <button class="download-btn" onclick="downloadApp(${app.id})">تحميل <i class="fas fa-download"></i></button>
+                    <button class="download-btn" onclick="downloadApp('${app.key}')">تحميل <i class="fas fa-download"></i></button>
                 `;
                 appsContainer.appendChild(appCard);
             });
+            // بعد تحميل التطبيقات، قم بتطبيق أي فلتر موجود
+            filterApps(document.querySelector('.category-btn.active').dataset.category, document.querySelector('.category-btn.active'));
         }
         
-        // دالة فلترة التطبيقات (بقية الدوال كما هي)
+        // دالة فلترة التطبيقات
         function filterApps(category, button) {
             document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
@@ -773,6 +751,7 @@
             });
         }
         
+        // دالة البحث
         function searchApps() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
             const appCards = document.querySelectorAll('.app-card');
@@ -792,12 +771,11 @@
             document.querySelector('.category-btn[data-category="الكل"]').classList.add('active');
         }
 
-        window.openDetailsModal = function(id) {
-            const apps = getApps();
-            const app = apps.find(a => a.id === id);
+        window.openDetailsModal = function(key) {
+            const app = window.allApps.find(a => a.key === key);
             
             if (app) {
-                window.currentAppId = app.id;
+                window.currentAppKey = app.key; // حفظ المفتاح للتحميل
                 
                 document.getElementById('detailsIcon').src = app.icon || 'https://via.placeholder.com/80/000/fff?text=Icon';
                 document.getElementById('detailsTitle').textContent = app.name;
@@ -813,7 +791,6 @@
                 
                 const screenshotsContainer = document.getElementById('detailsScreenshots');
                 screenshotsContainer.innerHTML = '';
-                // تحصين قراءة المصفوفة: التأكد من أنها مصفوفة قبل التكرار
                 if (Array.isArray(app.screenshots)) {
                     app.screenshots.forEach(src => {
                         const img = document.createElement('img');
@@ -830,37 +807,28 @@
             }
         }
 
-        window.downloadApp = function(id) {
-            // ... (كود التحميل كما هو)
-             const apps = getApps();
-            const app = apps.find(a => a.id === id);
+        window.downloadApp = function(key) {
+            const app = window.allApps.find(a => a.key === key);
             
             if (app) {
                 alert(`جارٍ تحضير ملف التثبيت لتطبيق: ${app.name}...`);
                 
-                setTimeout(() => {
-                    alert(`جاري تنزيل ملف التثبيت...`);
-                    
-                    let updatedApps = getApps();
-                    const appIndex = updatedApps.findIndex(a => a.id === id);
-                    if (appIndex !== -1) {
-                        updatedApps[appIndex].downloads = (updatedApps[appIndex].downloads || 0) + 1;
-                        saveApps(updatedApps); 
-                        loadApps(); 
-                        
-                        if(document.getElementById('appDetailsModal').style.display === 'block') {
-                            openDetailsModal(id);
-                        }
-                    }
-                    
+                // تحديث عدد التحميلات في Firebase
+                database.ref('apps/' + key + '/downloads').transaction(currentDownloads => {
+                    return (currentDownloads || 0) + 1;
+                }).then(() => {
+                    // بعد تحديث التحميلات بنجاح
                     setTimeout(() => {
                          alert(`تم تحميل ${app.name} بنجاح!\n\nسيتم تثبيت التطبيق على جهازك.`);
                     }, 500);
+                }).catch(error => {
+                    console.error("خطأ في تحديث التحميلات:", error);
+                });
 
-                }, 2000);
             }
         }
 
+        // باقي الدوال (openModal, closeModal, contactForm, window.onclick) كما هي
         function openModal(imageUrl) {
             document.getElementById('modalImage').src = imageUrl;
             document.getElementById('imageModal').style.display = 'block';
@@ -870,7 +838,6 @@
             document.getElementById('imageModal').style.display = 'none';
         }
 
-        // دالة وهمية لمعالجة نموذج الاتصال 
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             alert('تم استلام رسالتك! سنقوم بالرد عليك قريباً. (ملاحظة: يتطلب الإرسال الفعلي خادم بريد)');
@@ -878,9 +845,11 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            loadApps();
+            // الاستماع للتغييرات على قاعدة البيانات وتحديث القائمة تلقائياً
+            database.ref('apps').on('value', (snapshot) => {
+                loadApps(snapshot.val());
+            });
             
-            // إضافة تأثيرات للروابط
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();

@@ -678,22 +678,21 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script> 
     <script>
-        // ----------------- مفاتيح مشروعك "sudan play" -----------------
-        // >>>>> قم بتعويض هذه القيم بالمفاتيح الحقيقية الخاصة بك من Firebase <<<<<
+        // ----------------- مفاتيح مشروعك "sudan play" الصحيحة -----------------
         const firebaseConfig = {
-            apiKey: "ضع_مفتاح_API_الخاص_بك_هنا", 
-            authDomain: "ضع_نطاق_المصادقة_الخاص_بك_هنا", 
-            projectId: "sudan-play", // يرجى التأكد من أن هذا صحيح
-            storageBucket: "ضع_Storage_Bucket_الخاص_بك_هنا",
-            messagingSenderId: "ضع_Messaging_Sender_ID_الخاص_بك_هنا",
-            appId: "ضع_App_ID_الخاص_بك_هنا",
-            measurementId: "ضع_Measurement_ID_الخاص_بك_هنا"
+          apiKey: "AIzaSyBJE_Ee-Dyh83iny45eH8lVtTSrIVqTzOI",
+          authDomain: "sudan-play.firebaseapp.com",
+          projectId: "sudan-play",
+          storageBucket: "sudan-play.firebasestorage.app",
+          messagingSenderId: "981764948623",
+          appId: "1:981764948623:web:00e5c9268198f70e39a6fa",
+          measurementId: "G-Y6NP2MNQR9"
         };
-        // -----------------------------------------------------------------------
         
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const appsCollection = db.collection('apps'); 
+        // -----------------------------------------------------------------------
         
         let currentAppId = null;
 
@@ -810,7 +809,7 @@
             appsCollection.doc(id).get().then(doc => {
                 const app = doc.data();
                 if (!app || !app.downloadLink) {
-                    alert('عفواً، رابط تحميل هذا التطبيق غير متوفر حالياً.');
+                    alert('عفواً، رابط تحميل هذا التطبيق غير متوفر حالياً. يرجى إضافته عبر لوحة التحكم.');
                     return;
                 }
                 

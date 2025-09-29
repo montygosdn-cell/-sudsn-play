@@ -827,5 +827,40 @@
             renderApps();
         });
     </script>
+    <script>
+    // التحقق من تسجيل الدخول
+    function checkLogin() {
+        const session = localStorage.getItem('sudanPlayAdmin');
+        if (!session) {
+            window.location.href = 'login.html';
+            return false;
+        }
+        return true;
+    }
+
+    // تسجيل الخروج
+    function logout() {
+        localStorage.removeItem('sudanPlayAdmin');
+        window.location.href = 'login.html';
+    }
+
+    // تهيئة لوحة التحكم
+    document.addEventListener('DOMContentLoaded', function() {
+        if (!checkLogin()) return;
+        
+        // تهيئة لوحة التحكم
+        initializeDashboard();
+        
+        // إضافة حدث تسجيل الخروج
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            if (link.textContent.includes('تسجيل الخروج')) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    logout();
+                });
+            }
+        });
+    });
+</script>
 </body>
 </html>

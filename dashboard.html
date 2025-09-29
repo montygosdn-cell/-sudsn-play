@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول - Sudan Play</title>
+    <title>لوحة تحكم Sudan Play</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -25,246 +25,462 @@
         }
 
         body {
-            background: var(--gradient);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .login-container {
             background-color: var(--light);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            z-index: 10;
-            animation: fadeIn 0.8s ease-out;
+            color: var(--dark);
+            padding-top: 70px; /* مسافة للـ header الثابت */
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .logo {
-            color: var(--primary);
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            font-weight: bold;
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--dark);
+            color: white;
+            padding: 15px 30px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
+            box-shadow: var(--shadow);
+            z-index: 100;
         }
 
-        .logo i {
-            margin-left: 10px;
-            color: var(--secondary);
+        .header h1 {
+            font-size: 1.5em;
+            color: var(--primary);
+        }
+
+        .header .logout-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .header .logout-btn:hover {
+            background: rgb(220, 74, 100);
+        }
+
+        .container {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         h2 {
+            text-align: center;
             margin-bottom: 30px;
+            color: var(--primary);
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 80px;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        /* تنسيق نموذج إضافة التطبيق */
+        .app-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
             color: var(--dark);
         }
 
-        .input-group {
-            margin-bottom: 25px;
-            position: relative;
-            background-color: #f0f0f5;
-            border-radius: 10px;
-            padding: 10px 15px;
+        .form-control, .form-select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus, textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .btn-group {
             display: flex;
-            align-items: center;
+            gap: 15px;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #aaa;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* تنسيق قائمة التطبيقات */
+        .app-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .app-card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
             transition: transform 0.3s ease;
         }
 
-        .input-group i {
-            color: var(--primary);
-            margin-left: 10px;
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
-        .form-control {
-            width: 100%;
-            padding: 10px 0;
-            border: none;
-            background: none;
-            outline: none;
-            font-size: 1em;
+        .app-header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            background: var(--gradient-light);
+        }
+
+        .app-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-left: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .app-name {
+            font-size: 1.2em;
             color: var(--dark);
         }
 
-        .login-btn {
-            width: 100%;
+        .app-body {
             padding: 15px;
-            border: none;
-            background: var(--gradient);
+            font-size: 0.9em;
+        }
+
+        .app-body p {
+            margin-bottom: 5px;
+        }
+
+        .app-body strong {
+            color: var(--primary);
+        }
+
+        .app-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .edit-btn {
+            background-color: var(--accent);
             color: white;
-            border-radius: 10px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 8px 15px;
         }
 
-        .login-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .message {
-            margin-top: 20px;
-            color: var(--secondary);
-            font-weight: 500;
-        }
-
-        /* تأثير الجزيئات في الخلفية */
-        .particle {
-            position: absolute;
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0;
-            animation: particleAnimation 10s infinite ease-in-out;
-        }
-
-        @keyframes particleAnimation {
-            0% { transform: translate(0, 0) scale(0); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translate(var(--x), var(--y)) scale(1.5); opacity: 0; }
+        .delete-btn {
+            background-color: var(--secondary);
+            color: white;
+            padding: 8px 15px;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="logo"><i class="fas fa-gamepad"></i> Sudan Play</div>
-        <h2>تسجيل دخول الإدارة</h2>
-        <form id="loginForm">
-            <div class="input-group">
-                <i class="fas fa-user"></i>
-                <input type="text" id="username" class="form-control" placeholder="اسم المستخدم" required>
+    <header class="header">
+        <h1>لوحة تحكم Sudan Play</h1>
+        <button class="logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> تسجيل خروج
+        </button>
+    </header>
+
+    <div class="container">
+        <h2>إدارة التطبيقات</h2>
+
+        <div class="app-form">
+            <h3>إضافة/تعديل تطبيق</h3>
+            <form id="appForm">
+                <div class="form-group">
+                    <label for="appName">اسم التطبيق *</label>
+                    <input type="text" id="appName" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="appCategory">الفئة *</label>
+                    <select id="appCategory" class="form-select" required>
+                        <option value="ألعاب">ألعاب</option>
+                        <option value="أخبار">أخبار</option>
+                        <option value="إنتاجية">إنتاجية</option>
+                        <option value="تعليم">تعليم</option>
+                        <option value="ترفيه">ترفيه</option>
+                        <option value="مالية">مالية</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appVersion">الإصدار *</label>
+                    <input type="text" id="appVersion" class="form-control" value="1.0.0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appSize">الحجم (ميغابايت) *</label>
+                    <input type="number" id="appSize" class="form-control" step="0.1" min="0.1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appRating">التقييم (1-5) *</label>
+                    <input type="number" id="appRating" class="form-control" step="0.1" min="1" max="5" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="appDownloads">عدد التحميلات (مبدئي) *</label>
+                    <input type="number" id="appDownloads" class="form-control" min="0" value="0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appDescription">الوصف *</label>
+                    <textarea id="appDescription" class="form-control" rows="4" required></textarea>
+                </div>
+                
+                <div class="btn-group">
+                    <button type="reset" class="btn btn-secondary">إلغاء/مسح</button>
+                    <button type="submit" id="submitBtn" class="btn btn-primary">إضافة التطبيق</button>
+                </div>
+            </form>
+        </div>
+
+        <h2 style="margin-top: 40px;">قائمة التطبيقات</h2>
+        <div class="app-list" id="appList">
             </div>
-            <div class="input-group">
-                <i class="fas fa-lock"></i>
-                <input type="password" id="password" class="form-control" placeholder="كلمة المرور" required>
-            </div>
-            <button type="submit" class="login-btn">تسجيل الدخول</button>
-            <p id="loginMessage" class="message"></p>
-        </form>
     </div>
-    
-    <div id="particles-container"></div>
 
     <script>
-        // دالة إنشاء الجزيئات
-        function createParticles() {
-            const container = document.getElementById('particles-container');
-            for (let i = 0; i < 20; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // تحديد موقع وحجم وزمن عشوائي
-                const size = Math.random() * 8 + 3; // 3px to 11px
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                const duration = Math.random() * 5 + 5; // 5s to 10s
-                const delay = Math.random() * 5; // 0s to 5s
-                
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${x}%`;
-                particle.style.top = `${y}%`;
-                particle.style.animationDuration = `${duration}s`;
-                particle.style.animationDelay = `${delay}s`;
-                
-                // تحديد مسار الحركة العشوائي للجزيئات
-                particle.style.setProperty('--x', `${(Math.random() - 0.5) * 50}vw`);
-                particle.style.setProperty('--y', `${(Math.random() - 0.5) * 50}vh`);
-                
-                container.appendChild(particle);
-            }
+        // دالة تسجيل الخروج
+        function logout() {
+            localStorage.removeItem('sudanPlayAdmin');
+            window.location.href = 'login(1).html';
         }
 
-        // معالجة تسجيل الدخول
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const message = document.getElementById('loginMessage');
-            
-            // بيانات تسجيل الدخول الافتراضية
-            const ADMIN_USERNAME = 'admin';
-            const ADMIN_PASSWORD = 'admin123';
-            
-            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-                // تسجيل الدخول بنجاح
-                const userData = {
-                    username: ADMIN_USERNAME,
-                    loginTime: new Date().toISOString()
-                };
-                
-                // حفظ الجلسة في localStorage
-                localStorage.setItem('sudanPlayAdmin', JSON.stringify(userData));
-                
-                message.textContent = 'تم تسجيل الدخول بنجاح! جاري التوجيه...';
-                message.style.color = var(--primary);
-                
-                // التوجيه إلى لوحة التحكم (تم التعديل ليناسب اسم الملف المرفق)
-                setTimeout(() => {
-                    window.location.href = 'dashboard(3).html';
-                }, 1000);
-                
-            } else {
-                // فشل تسجيل الدخول
-                message.textContent = 'اسم المستخدم أو كلمة المرور غير صحيحة.';
-                message.style.color = var(--secondary);
-            }
-        });
-
-        // دالة التحقق من تسجيل دخول سابق
-        function checkExistingLogin() {
+        // دالة التحقق من تسجيل الدخول
+        function checkLogin() {
             const session = localStorage.getItem('sudanPlayAdmin');
-            if (session) {
-                const userData = JSON.parse(session);
-                // إذا كان مسجل دخول، نقله مباشرة للوحة التحكم (تم التعديل ليناسب اسم الملف المرفق)
-                window.location.href = 'dashboard(3).html';
+            if (!session) {
+                window.location.href = 'login(1).html'; 
             }
         }
 
-        // تهيئة الصفحة
-        document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
-            checkExistingLogin();
+        // دوال مساعدة لـ localStorage لإدارة بيانات التطبيقات
+        function getApps() {
+            const appsJson = localStorage.getItem('sudanPlayApps');
+            // إذا لم يكن هناك بيانات، قم بإرجاع مصفوفة فارغة
+            return appsJson ? JSON.parse(appsJson) : [];
+        }
+
+        function saveApps(apps) {
+            localStorage.setItem('sudanPlayApps', JSON.stringify(apps));
+        }
+
+        // دالة لإضافة تطبيق جديد
+        function addApp(formData) {
+            const apps = getApps();
+            // توليد معرف فريد جديد (أكبر ID + 1)
+            const newId = apps.length > 0 ? Math.max(...apps.map(a => a.id)) + 1 : 1;
+            const newApp = { 
+                id: newId, 
+                // تحويل الحقول الرقمية للتأكد من نوعها
+                size: parseFloat(formData.size) || 0,
+                rating: parseFloat(formData.rating) || 0,
+                downloads: parseInt(formData.downloads) || 0,
+                // تعيين مسارات صور افتراضية (يمكنك تطويرها لاحقًا)
+                icon: 'images/icon-default.png', 
+                cover: 'images/cover-default.jpg',
+                screenshots: ['images/screenshot1.jpg'],
+                ...formData, // دمج بقية حقول النموذج
+            };
+            apps.push(newApp);
+            saveApps(apps);
+        }
+
+        // تعديل دالة عرض التطبيقات لتقرأ من localStorage
+        function renderApps() {
+            const apps = getApps();
+            const appList = document.getElementById('appList');
+            if (!appList) return;
             
-            // إضافة تأثيرات للعناصر
-            const inputs = document.querySelectorAll('.form-control');
-            inputs.forEach(input => {
-                input.addEventListener('focus', function() {
-                    this.parentElement.style.transform = 'scale(1.02)';
-                });
+            appList.innerHTML = '';
+            
+            if (apps.length === 0) {
+                appList.innerHTML = '<p style="text-align: center; padding: 20px; color: #555;">لا توجد تطبيقات حاليًا. أضف تطبيقًا جديدًا!</p>';
+                return;
+            }
+
+            apps.forEach(app => {
+                const appCard = document.createElement('div');
+                appCard.classList.add('app-card');
+                appCard.innerHTML = `
+                    <div class="app-header">
+                        <img src="${app.icon || 'images/default-icon.png'}" alt="Icon" class="app-icon">
+                        <h3 class="app-name">${app.name}</h3>
+                    </div>
+                    <div class="app-body">
+                        <p><strong>الفئة:</strong> ${app.category || 'غير محدد'}</p>
+                        <p><strong>الإصدار:</strong> ${app.version || 'N/A'}</p>
+                        <p><strong>الحجم:</strong> ${app.size || 0} ميغابايت</p>
+                        <p><strong>التقييم:</strong> ${app.rating || 0} <i class="fas fa-star"></i></p>
+                        <p><strong>التحميلات:</strong> ${app.downloads || 0}</p>
+                    </div>
+                    <div class="app-actions">
+                        <button onclick="editApp(${app.id})" class="btn edit-btn"><i class="fas fa-edit"></i> تعديل</button>
+                        <button onclick="deleteApp(${app.id})" class="btn delete-btn"><i class="fas fa-trash"></i> حذف</button>
+                    </div>
+                `;
+                appList.appendChild(appCard);
+            });
+        }
+
+        // وظيفة ملء النموذج للتعديل
+        function editApp(id) {
+            const apps = getApps();
+            const app = apps.find(a => a.id === id);
+            
+            if (app) {
+                // ملء النموذج ببيانات التطبيق
+                document.getElementById('appName').value = app.name || '';
+                document.getElementById('appCategory').value = app.category || 'ألعاب';
+                document.getElementById('appVersion').value = app.version || '1.0.0';
+                document.getElementById('appSize').value = app.size || ''; 
+                document.getElementById('appRating').value = app.rating || '';
+                document.getElementById('appDownloads').value = app.downloads || '';
+                document.getElementById('appDescription').value = app.description || '';
                 
-                input.addEventListener('blur', function() {
-                    this.parentElement.style.transform = 'scale(1)';
-                });
+                // وضع الـ id في النموذج لمعرفة أننا في وضع التعديل
+                document.getElementById('appForm').dataset.editingId = app.id;
+                
+                // تحديث نص زر الإرسال
+                document.getElementById('submitBtn').textContent = 'حفظ التعديلات';
+                
+                // تمرير إلى أعلى الصفحة
+                document.querySelector('.app-form').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // وظيفة الحذف
+        function deleteApp(id) {
+            if (confirm('هل أنت متأكد من حذف هذا التطبيق؟')) {
+                let apps = getApps();
+                const index = apps.findIndex(a => a.id === id);
+                if (index !== -1) {
+                    apps.splice(index, 1);
+                    saveApps(apps); // حفظ البيانات بعد الحذف
+                    renderApps();
+                    alert('تم حذف التطبيق بنجاح!');
+                }
+            }
+        }
+
+        // تهيئة الصفحة ومعالجة إرسال النموذج
+        document.addEventListener('DOMContentLoaded', function() {
+            checkLogin(); // التأكد من تسجيل الدخول
+            renderApps();
+            
+            const appForm = document.getElementById('appForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const resetButton = document.querySelector('button[type="reset"]');
+
+            // دالة لإعادة تعيين النموذج ووضع التعديل
+            function resetForm() {
+                appForm.reset();
+                delete appForm.dataset.editingId;
+                submitBtn.textContent = 'إضافة التطبيق';
+            }
+            
+            // معالجة إرسال النموذج (إضافة أو تعديل)
+            appForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // جمع بيانات النموذج
+                const formData = {
+                    name: document.getElementById('appName').value,
+                    category: document.getElementById('appCategory').value,
+                    version: document.getElementById('appVersion').value,
+                    size: document.getElementById('appSize').value,
+                    rating: document.getElementById('appRating').value,
+                    downloads: document.getElementById('appDownloads').value,
+                    description: document.getElementById('appDescription').value,
+                };
+
+                const editingId = appForm.dataset.editingId;
+
+                if (editingId) {
+                    // وضع التعديل
+                    let apps = getApps();
+                    const index = apps.findIndex(a => a.id == editingId);
+                    if (index !== -1) {
+                        // تحديث بيانات التطبيق والحفاظ على الـ id مع تحويل أنواع البيانات
+                        apps[index] = { ...apps[index], ...formData, 
+                            id: parseInt(editingId),
+                            size: parseFloat(formData.size) || 0,
+                            rating: parseFloat(formData.rating) || 0,
+                            downloads: parseInt(formData.downloads) || 0,
+                        };
+                        saveApps(apps);
+                        alert('تم تعديل التطبيق بنجاح!');
+                    }
+                } else {
+                    // وضع الإضافة
+                    addApp(formData);
+                    alert('تم إضافة التطبيق بنجاح!');
+                }
+                
+                resetForm(); // إعادة تعيين النموذج بعد الإرسال
+                renderApps(); // تحديث القائمة
             });
             
-            // إدخال تجريبي للاختبار
-            document.getElementById('username').value = 'admin';
-            document.getElementById('password').value = 'admin123';
-        });
-
-        // إضافة تأثيرات كتابة للأحرف
-        document.addEventListener('keydown', function(e) {
-            if (e.target.type === 'password') {
-                const input = e.target;
-                input.style.letterSpacing = '2px';
-                setTimeout(() => {
-                    input.style.letterSpacing = 'normal';
-                }, 100);
+            // معالجة إعادة التعيين
+            if(resetButton) {
+                 resetButton.addEventListener('click', resetForm);
             }
         });
     </script>

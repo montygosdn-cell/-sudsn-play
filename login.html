@@ -211,17 +211,18 @@
                 localStorage.setItem('sudanPlayAdmin', JSON.stringify(userData));
                 
                 message.textContent = 'تم تسجيل الدخول بنجاح! جاري التوجيه...';
-                message.style.color = var(--primary);
+                message.style.color = 'rgb(74, 107, 255)'; // استخدام اللون الأساسي
                 
-                // التوجيه إلى لوحة التحكم (تم التعديل ليناسب اسم الملف المرفق)
+                // التوجيه إلى لوحة التحكم (المسار الصحيح)
                 setTimeout(() => {
-                    window.location.href = 'dashboard(3).html';
+                    // **هذا هو السطر الذي تم التأكد من صحته**
+                    window.location.href = 'dashboard(3).html'; 
                 }, 1000);
                 
             } else {
                 // فشل تسجيل الدخول
                 message.textContent = 'اسم المستخدم أو كلمة المرور غير صحيحة.';
-                message.style.color = var(--secondary);
+                message.style.color = 'rgb(255, 94, 125)'; // استخدام اللون الثانوي
             }
         });
 
@@ -230,7 +231,8 @@
             const session = localStorage.getItem('sudanPlayAdmin');
             if (session) {
                 const userData = JSON.parse(session);
-                // إذا كان مسجل دخول، نقله مباشرة للوحة التحكم (تم التعديل ليناسب اسم الملف المرفق)
+                // إذا كان مسجل دخول، نقله مباشرة للوحة التحكم (المسار الصحيح)
+                // **هذا هو السطر الذي تم التأكد من صحته**
                 window.location.href = 'dashboard(3).html';
             }
         }

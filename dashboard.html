@@ -347,18 +347,19 @@
         function addApp(formData) {
             const apps = getApps();
             const newId = apps.length > 0 ? Math.max(...apps.map(a => a.id)) + 1 : 1;
+            
+            // تحويل مسارات لقطات الشاشة إلى مصفوفة نظيفة
+            const screenshotsArray = formData.screenshotsPaths.split(',').map(s => s.trim()).filter(s => s.length > 0);
+
             const newApp = { 
                 id: newId, 
-                // تحويل الحقول الرقمية
                 size: parseFloat(formData.size) || 0,
                 rating: parseFloat(formData.rating) || 0,
                 downloads: parseInt(formData.downloads) || 0,
-                // مسارات الصور الجديدة
                 icon: formData.iconPath, 
                 cover: formData.coverPath, 
-                // تحويل مسارات لقطات الشاشة إلى مصفوفة
-                screenshots: formData.screenshotsPaths.split(',').map(s => s.trim()).filter(s => s.length > 0), 
-                ...formData, // دمج بقية حقول النموذج
+                screenshots: screenshotsArray, 
+                ...formData, 
             };
             apps.push(newApp);
             saveApps(apps);
@@ -380,9 +381,13 @@
             apps.forEach(app => {
                 const appCard = document.createElement('div');
                 appCard.classList.add('app-card');
+                
+                // استخدام مسار الأيقونة مع مسار احتياطي آمن
+                const iconSrc = app.icon || 'https://via.placeholder.com/50/000/fff?text=Icon';
+
                 appCard.innerHTML = `
                     <div class="app-header">
-                        <img src="${app.icon || 'https://via.placeholder.com/50/000/fff?text=Icon'}" alt="Icon" class="app-icon">
+                        <img src="${iconSrc}" alt="Icon" class="app-icon">
                         <h3 class="app-name">${app.name}</h3>
                     </div>
                     <div class="app-body">
@@ -407,7 +412,6 @@
             const app = apps.find(a => a.id === id);
             
             if (app) {
-                // ملء النموذج ببيانات التطبيق الأساسية
                 document.getElementById('appName').value = app.name || '';
                 document.getElementById('appCategory').value = app.category || 'ألعاب';
                 document.getElementById('appVersion').value = app.version || '1.0.0';
@@ -420,15 +424,11 @@
                 document.getElementById('appIconPath').value = app.icon || '';
                 document.getElementById('appCoverPath').value = app.cover || '';
                 // تحويل مصفوفة لقطات الشاشة إلى نص مفصول بفواصل
-                document.getElementById('appScreenshotsPaths').value = (app.screenshots || []).join(', ');
+                document.getElementById('appScreenshotsPaths').value = (Array.isArray(app.screenshots) ? app.screenshots.join(', ') : '');
 
-                // وضع الـ id في النموذج لمعرفة أننا في وضع التعديل
                 document.getElementById('appForm').dataset.editingId = app.id;
-                
-                // تحديث نص زر الإرسال
                 document.getElementById('submitBtn').textContent = 'حفظ التعديلات';
                 
-                // تمرير إلى أعلى الصفحة
                 document.querySelector('.app-form').scrollIntoView({ behavior: 'smooth' });
             }
         }
@@ -440,7 +440,7 @@
                 const index = apps.findIndex(a => a.id === id);
                 if (index !== -1) {
                     apps.splice(index, 1);
-                    saveApps(apps); // حفظ البيانات بعد الحذف
+                    saveApps(apps); 
                     renderApps();
                     alert('تم حذف التطبيق بنجاح!');
                 }
@@ -449,14 +449,13 @@
 
         // تهيئة الصفحة ومعالجة إرسال النموذج
         document.addEventListener('DOMContentLoaded', function() {
-            checkLogin(); // التأكد من تسجيل الدخول
+            checkLogin(); 
             renderApps();
             
             const appForm = document.getElementById('appForm');
             const submitBtn = document.getElementById('submitBtn');
             const resetButton = document.querySelector('button[type="reset"]');
 
-            // دالة لإعادة تعيين النموذج ووضع التعديل
             function resetForm() {
                 appForm.reset();
                 delete appForm.dataset.editingId;
@@ -467,11 +466,9 @@
                 document.getElementById('appScreenshotsPaths').value = "https://via.placeholder.com/150x250/ccc/333?text=SS1, https://via.placeholder.com/150x250/ddd/333?text=SS2";
             }
             
-            // معالجة إرسال النموذج (إضافة أو تعديل)
             appForm.addEventListener('submit', function(e) {
                 e.preventDefault();
 
-                // جمع بيانات النموذج
                 const formData = {
                     name: document.getElementById('appName').value,
                     category: document.getElementById('appCategory').value,
@@ -480,7 +477,6 @@
                     rating: document.getElementById('appRating').value,
                     downloads: document.getElementById('appDownloads').value,
                     description: document.getElementById('appDescription').value,
-                    // جمع حقول الصور الجديدة
                     iconPath: document.getElementById('appIconPath').value.trim(),
                     coverPath: document.getElementById('appCoverPath').value.trim(),
                     screenshotsPaths: document.getElementById('appScreenshotsPaths').value.trim(),
@@ -489,35 +485,33 @@
                 const editingId = appForm.dataset.editingId;
 
                 if (editingId) {
-                    // وضع التعديل
                     let apps = getApps();
                     const index = apps.findIndex(a => a.id == editingId);
                     if (index !== -1) {
-                        // تحديث بيانات التطبيق والحفاظ على الـ id مع تحويل أنواع البيانات
+                        // تحويل مسارات لقطات الشاشة إلى مصفوفة نظيفة
+                        const screenshotsArray = formData.screenshotsPaths.split(',').map(s => s.trim()).filter(s => s.length > 0);
+                        
                         apps[index] = { ...apps[index], ...formData, 
                             id: parseInt(editingId),
                             size: parseFloat(formData.size) || 0,
                             rating: parseFloat(formData.rating) || 0,
                             downloads: parseInt(formData.downloads) || 0,
-                            icon: formData.iconPath, // تحديث الأيقونة
-                            cover: formData.coverPath, // تحديث الغلاف
-                            // تحديث لقطات الشاشة وتحويلها إلى مصفوفة
-                            screenshots: formData.screenshotsPaths.split(',').map(s => s.trim()).filter(s => s.length > 0), 
+                            icon: formData.iconPath, 
+                            cover: formData.coverPath, 
+                            screenshots: screenshotsArray, 
                         };
                         saveApps(apps);
                         alert('تم تعديل التطبيق بنجاح!');
                     }
                 } else {
-                    // وضع الإضافة
                     addApp(formData);
                     alert('تم إضافة التطبيق بنجاح!');
                 }
                 
-                resetForm(); // إعادة تعيين النموذج بعد الإرسال
-                renderApps(); // تحديث القائمة
+                resetForm(); 
+                renderApps(); 
             });
             
-            // معالجة إعادة التعيين
             if(resetButton) {
                  resetButton.addEventListener('click', resetForm);
             }

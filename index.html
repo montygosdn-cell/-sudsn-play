@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudan Play - متجر التطبيقات السوداني</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: rgb(74, 107, 255);
+            --secondary: rgb(255, 94, 125);
+            --accent: rgb(46, 196, 182);
+            --dark: rgb(30, 30, 45);
+            --light: rgb(248, 249, 254);
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --gradient-light: linear-gradient(135deg, rgba(74, 107, 255, 0.1) 0%, rgba(255, 94, 125, 0.1) 100%);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Header / Navigation --- */
+        header {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 15px 40px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo h1 {
+            font-size: 1.8em;
+            color: var(--accent);
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            margin-right: 25px;
+            font-size: 1em;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: var(--gradient);
+            color: var(--light);
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .hero button {
+            background-color: var(--dark);
+            color: var(--light);
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .hero button:hover {
+            background-color: #000;
+            transform: translateY(-3px);
+        }
+
+        /* --- App Showcase --- */
+        #apps {
+            padding: 40px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 90%;
+        }
+
+        #apps h2 {
+            text-align: center;
+            color: var(--dark);
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .filter-section {
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 30px;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .filter-section label {
+            font-weight: bold;
+            color: var(--dark);
+            font-size: 1.1em;
+        }
+
+        #categoryFilter {
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+            min-width: 200px;
+        }
+
+        #apps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .app-card {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .app-cover {
+            height: 150px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .app-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .app-cover:hover img {
+            transform: scale(1.05);
+        }
+
+        .app-cover .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .app-cover:hover .overlay {
+            opacity: 1;
+        }
+
+        .app-cover .overlay i {
+            color: var(--light);
+            font-size: 2em;
+        }
+
+
+        .app-info {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+            flex-shrink: 0;
+        }
+
+        .app-text {
+            flex-grow: 1;
+        }
+
+        .app-title {
+            font-size: 1.2em;
+            color: var(--dark);
+            margin: 0 0 5px 0;
+            line-height: 1.3;
+        }
+
+        .app-category {
+            font-size: 0.9em;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .app-rating {
+            font-size: 0.8em;
+            color: #aaa;
+        }
+
+        .app-rating i {
+            color: #ccc;
+        }
+
+        .app-rating i.filled {
+            color: gold;
+        }
+
+        .download-btn {
+            background: var(--secondary);
+            color: var(--light);
+            border: none;
+            padding: 10px 15px;
+            width: 90%;
+            margin: 0 auto 15px auto;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: opacity 0.3s;
+            text-align: center;
+        }
+
+        .download-btn:hover {
+            opacity: 0.8;
+        }
+
+        /* --- App Details Modal --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--light);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 700px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 15px;
+            left: 20px;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: var(--secondary);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .details-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        #detailsIcon {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+        }
+
+        .details-text h3 {
+            font-size: 1.8em;
+            color: var(--dark);
+            margin: 0;
+        }
+
+        .details-meta {
+            font-size: 0.9em;
+            color: #777;
+            display: flex;
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .details-meta span strong {
+            color: var(--primary);
+        }
+
+        .details-description {
+            margin-bottom: 20px;
+            color: #444;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .details-info {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            background-color: var(--gradient-light);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .details-info div {
+            flex: 1;
+        }
+
+        .details-info p {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .details-info span {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        #detailsScreenshots {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        #detailsScreenshots img {
+            width: 200px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+
+        #detailsScreenshots img:hover {
+            transform: scale(1.03);
+        }
+
+        .download-modal-btn {
+            background: var(--gradient);
+            color: var(--light);
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 20px;
+            transition: opacity 0.3s;
+        }
+
+        .download-modal-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Image View Modal */
+        #imageModal .modal-content {
+            margin: 2% auto;
+            max-width: 90%;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            border: none;
+        }
+
+        #modalImage {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+        }
+
+        /* --- Contact Section --- */
+        #contact {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 60px 40px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #contact h2 {
+            color: var(--accent);
+        }
+
+        #contact p {
+            margin-bottom: 30px;
+        }
+
+        .contact-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .contact-form button {
+            background: var(--secondary);
+            color: var(--light);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: opacity 0.3s;
+        }
+
+        .contact-form button:hover {
+            opacity: 0.8;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: #111;
+            color: #999;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            margin-top: auto;
+        }
+
+        /* تصميم الاستجابة للهواتف */
+        @media (max-width: 768px) {
+            header, nav {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                margin-top: 15px;
+            }
+
+            .nav-links a {
+                margin-right: 15px;
+            }
+
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .hero h2 {
+                font-size: 2em;
+            }
+
+            #apps {
+                width: 95%;
+            }
+
+            #apps-container {
+                grid-template-columns: 1fr;
+            }
+
+            .details-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .details-text h3 {
+                margin-top: 10px;
+            }
+
+            .details-info {
+                flex-wrap: wrap;
+            }
+            .details-info > div {
+                flex-basis: 50%;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body onload="loadApps()">
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Sudan Play</h1>
+            </div>
+            <div class="nav-links">
+                <a href="#apps"><i class="fas fa-th"></i> التطبيقات</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> عن المتجر</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> تواصل معنا</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h2>متجر التطبيقات السوداني</h2>
+        <p>اكتشف وحمل أفضل التطبيقات والألعاب المحلية والعالمية المصممة خصيصًا لك.</p>
+        <a href="#apps"><button>ابدأ التصفح <i class="fas fa-arrow-down"></i></button></a>
+    </section>
+
+    <section id="apps">
+        <h2>اكتشف أحدث التطبيقات</h2>
+        
+        <div class="filter-section">
+            <label for="categoryFilter"><i class="fas fa-filter"></i> تصفية حسب الفئة:</label>
+            <select id="categoryFilter" onchange="filterApps(this.value)">
+                <option value="الكل">الكل</option>
+                <option value="ألعاب">ألعاب</option>
+                <option value="أدوات">أدوات</option>
+                <option value="تواصل">تواصل</option>
+                <option value="تعليم">تعليم</option>
+                <option value="ترفيه">ترفيه</option>
+                <option value="مال وأعمال">مال وأعمال</option>
+                <option value="أخرى">أخرى</option>
+            </select>
+        </div>
+
+        <div id="apps-container">
+            </div>
+    </section>
+
+    <section id="about" style="background-color: #f1f1f1; padding: 60px 40px; text-align: center;">
+        <h2>عن Sudan Play</h2>
+        <p style="max-width: 800px; margin: 0 auto; color: #555; line-height: 1.8;">
+            Sudan Play هو بوابتك لاكتشاف المحتوى الرقمي الموثوق والمناسب للمستخدم السوداني. نحن نسعى لتقديم أفضل تجربة تحميل، مع التركيز على دعم المطورين المحليين وضمان جودة التطبيقات المقدمة. مهمتنا هي ربط المستخدم بالتكنولوجيا التي تخدمه.
+        </p>
+    </section>
+
+    <section id="contact">
+        <h2>تواصل معنا</h2>
+        <p>للدعم الفني، الاستفسارات، أو إدراج تطبيقك، يرجى ملء النموذج أدناه.</p>
+        <form class="contact-form" id="contactForm">
+            <input type="text" placeholder="اسمك الكامل" required>
+            <input type="email" placeholder="بريدك الإلكتروني" required>
+            <textarea placeholder="رسالتك..." rows="5" required></textarea>
+            <button type="submit">إرسال الرسالة <i class="fas fa-paper-plane"></i></button>
+        </form>
+    </section>
+
+    <div id="appDetailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="document.getElementById('appDetailsModal').style.display='none'">&times;</span>
+            <div class="details-header">
+                <img id="detailsIcon" src="" alt="App Icon">
+                <div class="details-text">
+                    <h3 id="detailsTitle">اسم التطبيق</h3>
+                    <div class="details-meta">
+                        <span><strong>الفئة:</strong> <span id="detailsCategory"></span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="details-info">
+                <div>
+                    <p id="detailsRating">4.5</p>
+                    <span>التقييم</span>
+                </div>
+                <div>
+                    <p id="detailsDownloads">0</p>
+                    <span>تحميل</span>
+                </div>
+                <div>
+                    <p id="detailsSize">50 ميغابايت</p>
+                    <span>الحجم</span>
+                </div>
+                <div>
+                    <p id="detailsVersion">1.0.0</p>
+                    <span>الإصدار</span>
+                </div>
+            </div>
+
+            <h4 style="color: var(--dark); margin-bottom: 10px;">الوصف</h4>
+            <p id="detailsDescription" class="details-description"></p>
+
+            <h4 style="color: var(--dark); margin-bottom: 10px;">لقطات الشاشة</h4>
+            <div id="detailsScreenshots">
+                </div>
+
+            <button class="download-modal-btn" onclick="downloadApp(window.currentAppId)">تحميل التطبيق الآن <i class="fas fa-download"></i></button>
+        </div>
+    </div>
+
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <img id="modalImage" src="" alt="Full Screen Screenshot">
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 Sudan Play. جميع الحقوق محفوظة.
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script> 
+    <script>
+        // ----------------- مفاتيح مشروعك "sudan play" -----------------
+        const firebaseConfig = {
+            apiKey: "AIzaSyBJE_Ee-Dyh83iny45eH8lVtTSrIVqTzOI",
+            authDomain: "sudan-play.firebaseapp.com",
+            projectId: "sudan-play",
+            storageBucket: "sudan-play.firebasestorage.app",
+            messagingSenderId: "981764948623",
+            appId: "1:981764948623:web:00e5c9268198f70e39a6fa",
+            measurementId: "G-Y6NP2MNQR9"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const appsCollection = db.collection('apps'); 
+        // -----------------------------------------------------------------------
+        
+        let currentAppId = null;
+
+        // وظيفة تحميل وعرض التطبيقات من Firestore
+        function loadApps() {
+            const appsContainer = document.getElementById('apps-container');
+            
+            // الاستماع للتغييرات في قاعدة البيانات
+            // يرتب حسب "downloads" تنازلياً لعرض الأكثر تحميلاً أولاً
+            appsCollection.orderBy('downloads', 'desc').onSnapshot(snapshot => {
+                appsContainer.innerHTML = ''; // تفريغ الحاوية قبل إعادة العرض
+                const apps = [];
+                snapshot.forEach(doc => {
+                    // نجمع بيانات التطبيق مع مفتاح Firestore
+                    apps.push({ ...doc.data(), id: doc.id }); 
+                });
+
+                if (apps.length === 0) {
+                    appsContainer.innerHTML = '<p class="no-apps" style="grid-column: 1 / -1; text-align: center; padding: 20px; font-size: 1.2em; color: var(--secondary);">لا توجد تطبيقات متاحة حاليًا.</p>';
+                    return;
+                }
+                
+                // عرض التطبيقات
+                apps.forEach(app => {
+                    const appCard = document.createElement('div');
+                    appCard.classList.add('app-card');
+                    appCard.setAttribute('data-category', app.category);
+                    
+                    const iconSrc = app.iconPath || "https://via.placeholder.com/60/000/fff?text=Icon";
+                    const coverSrc = app.coverPath || "https://via.placeholder.com/300x150/000/fff?text=No+Cover";
+                    
+                    const ratingValue = parseFloat(app.rating) || 0;
+                    const fullStars = Array(Math.floor(ratingValue)).fill('<i class="fas fa-star filled"></i>').join('');
+                    const emptyStars = Array(5 - Math.floor(ratingValue)).fill('<i class="fas fa-star"></i>').join('');
+
+                    appCard.innerHTML = `
+                        <div class="app-cover" onclick="openDetailsModal('${app.id}')">
+                            <img src="${coverSrc}" alt="${app.name} Cover">
+                            <div class="overlay">
+                                <i class="fas fa-search-plus"></i>
+                            </div>
+                        </div>
+                        <div class="app-info">
+                            <img src="${iconSrc}" alt="${app.name} Icon" class="app-icon">
+                            <div class="app-text">
+                                <h3 class="app-title" onclick="openDetailsModal('${app.id}')">${app.name}</h3>
+                                <p class="app-category">${app.category}</p>
+                                <div class="app-rating">
+                                    ${fullStars}
+                                    ${emptyStars}
+                                    <span>(${app.downloads || 0} تحميل)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="download-btn" onclick="downloadApp('${app.id}')">تحميل <i class="fas fa-download"></i></button>
+                    `;
+                    appsContainer.appendChild(appCard);
+                });
+
+                // إعادة تصفية التطبيقات بعد التحميل إذا كان هناك فلتر مطبق
+                filterApps(document.getElementById('categoryFilter').value); 
+            });
+        }
+
+        // وظيفة عرض التفاصيل
+        window.openDetailsModal = function(id) {
+            appsCollection.doc(id).get().then(doc => {
+                const app = doc.data();
+                if (app) {
+                    window.currentAppId = id; // حفظ مفتاح Firestore
+                    
+                    document.getElementById('detailsIcon').src = app.iconPath || 'https://via.placeholder.com/80/000/fff?text=Icon';
+                    document.getElementById('detailsTitle').textContent = app.name;
+
+                    document.getElementById('detailsCategory').textContent = app.category;
+                    document.getElementById('detailsDescription').textContent = app.description;
+                    document.getElementById('detailsVersion').textContent = `${app.version}`;
+                    document.getElementById('detailsSize').textContent = `${app.size} ميغابايت`;
+                    
+                    const ratingContainer = document.getElementById('detailsRating');
+                    const ratingValue = parseFloat(app.rating) || 0;
+                    const fullStars = Array(Math.floor(ratingValue)).fill('<i class="fas fa-star filled"></i>').join('');
+
+                    ratingContainer.innerHTML = `${ratingValue} ${fullStars}`;
+
+                    document.getElementById('detailsDownloads').textContent = `${app.downloads || 0}`;
+                    
+                    const screenshotsContainer = document.getElementById('detailsScreenshots');
+                    screenshotsContainer.innerHTML = '';
+                    
+                    if (Array.isArray(app.screenshotsPaths)) { 
+                        app.screenshotsPaths.forEach(src => {
+                            const img = document.createElement('img');
+                            img.src = src;
+                            img.alt = 'لقطة شاشة للتطبيق';
+                            img.onclick = () => openModal(src);
+                            screenshotsContainer.appendChild(img);
+                        });
+                    }
+                    
+                    document.getElementById('appDetailsModal').style.display = 'block';
+                } else {
+                    alert('لم يتم العثور على التطبيق.');
+                }
+            }).catch(error => {
+                console.error("Error fetching document: ", error);
+                alert('حدث خطأ أثناء جلب التفاصيل.');
+            });
+        }
+
+        // دالة التحميل (تزيد العداد في Firestore)
+        window.downloadApp = function(id) {
+            alert(`جارٍ تحضير ملف التثبيت لتطبيق...`);
+
+            // زيادة عداد التحميلات في Firestore
+            appsCollection.doc(id).update({
+                downloads: firebase.firestore.FieldValue.increment(1)
+            }).then(() => {
+                alert(`جاري تنزيل ملف التثبيت...`);
+                // هنا يمكنك إضافة كود لتنزيل الملف الفعلي
+                setTimeout(() => {
+                     alert(`تم تحميل التطبيق بنجاح!\n\nسيتم تثبيت التطبيق على جهازك.`);
+                }, 1500);
+
+            }).catch(error => {
+                console.error("Error updating downloads: ", error);
+                alert("فشل تحديث عداد التحميلات. تأكد من قواعد الأمان.");
+            });
+        }
+
+
+        // دوال مساعدة للعرض
+        function filterApps(category) {
+            const apps = document.querySelectorAll('.app-card');
+            apps.forEach(app => {
+                if (category === 'الكل' || app.getAttribute('data-category') === category) {
+                    app.style.display = 'flex';
+                } else {
+                    app.style.display = 'none';
+                }
+            });
+        }
+
+        function openModal(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // دالة وهمية لمعالجة نموذج الاتصال 
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('تم استلام رسالتك! سنقوم بالرد عليك قريباً. (ملاحظة: يتطلب الإرسال الفعلي خادم بريد)');
+            this.reset();
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // الآن نستخدم loadApps() لبدء الاستماع لـ Firestore
+            loadApps(); 
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+
+        window.onclick = function(event) {
+            const detailsModal = document.getElementById('appDetailsModal');
+            const imageModal = document.getElementById('imageModal');
+            
+            if (event.target === detailsModal) {
+                detailsModal.style.display = 'none';
+            }
+            if (event.target === imageModal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

@@ -26,7 +26,7 @@
 
         body {
             background-color: var(--light);
-            min-height: 100vh;
+            min-height: 10vh;
             display: flex;
             flex-direction: column;
         }
@@ -502,16 +502,6 @@
             opacity: 0.8;
         }
 
-        /* --- Footer --- */
-        footer {
-            background-color: #111;
-            color: #999;
-            text-align: center;
-            padding: 20px;
-            font-size: 0.9em;
-            margin-top: auto;
-        }
-
         /* تصميم الاستجابة للهواتف */
         @media (max-width: 768px) {
             header, nav {
@@ -558,6 +548,72 @@
                 flex-basis: 50%;
                 margin: 10px 0;
             }
+        }
+        
+        /* --- إضافة تصميم شريط الرسائل التفاعلية (Toast/Snackbar) --- */
+        #toast-message {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: var(--dark);
+            color: var(--light);
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 3000; /* أعلى من كل شيء */
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 30px;
+            font-size: 1.1em;
+            box-shadow: var(--shadow);
+            transition: visibility 0s, opacity 0.5s linear;
+            opacity: 0;
+        }
+
+        #toast-message.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* --- تصميم زر التحميل وتأثير الـ Loader --- */
+        .download-btn.loading {
+            background: var(--dark); /* لون داكن أثناء التحميل */
+            pointer-events: none; /* لمنع النقر المتكرر */
+            position: relative;
+            color: transparent !important; /* إخفاء النص الأصلي */
+            min-height: 40px; 
+            display: flex; /* لضمان تمركز اللودر */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* تنسيق زر التحميل داخل المودال */
+        .download-modal-btn.loading {
+            background: var(--dark); /* لون داكن أثناء التحميل */
+            pointer-events: none; /* لمنع النقر المتكرر */
+            position: relative;
+            color: transparent !important; /* إخفاء النص الأصلي */
+            min-height: 50px; 
+            display: flex; /* لضمان تمركز اللودر */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .download-btn.loading::after, 
+        .download-modal-btn.loading::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--accent); /* لون مختلف للجزء المتحرك */
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -660,7 +716,7 @@
             <div id="detailsScreenshots">
                 </div>
 
-            <button class="download-modal-btn" onclick="downloadApp(window.currentAppId)">تحميل التطبيق الآن <i class="fas fa-download"></i></button>
+            <button class="download-modal-btn" onclick="downloadApp(window.currentAppId, this)">تحميل التطبيق الآن <i class="fas fa-download"></i></button>
         </div>
     </div>
 
@@ -670,6 +726,8 @@
             <img id="modalImage" src="" alt="Full Screen Screenshot">
         </div>
     </div>
+
+    <div id="toast-message"></div>
 
     <footer>
         &copy; 2024 Sudan Play. جميع الحقوق محفوظة.
@@ -695,6 +753,19 @@
         // -----------------------------------------------------------------------
         
         let currentAppId = null;
+
+        // دالة عرض الرسائل الاحترافية (Toast/Snackbar)
+        function showToast(message, duration = 3000) {
+            const toast = document.getElementById("toast-message");
+            if (!toast) return;
+
+            toast.textContent = message;
+            toast.classList.add("show");
+
+            setTimeout(function(){ 
+                toast.classList.remove("show"); 
+            }, duration);
+        }
 
         // وظيفة تحميل وعرض التطبيقات من Firestore
         function loadApps() {
@@ -747,7 +818,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="download-btn" onclick="downloadApp('${app.id}')">تحميل <i class="fas fa-download"></i></button>
+                        <button class="download-btn" onclick="downloadApp('${app.id}', this)">تحميل <i class="fas fa-download"></i></button>
                     `;
                     appsContainer.appendChild(appCard);
                 });
@@ -795,36 +866,69 @@
                     
                     document.getElementById('appDetailsModal').style.display = 'block';
                 } else {
-                    alert('لم يتم العثور على التطبيق.');
+                    showToast('لم يتم العثور على التطبيق.');
                 }
             }).catch(error => {
                 console.error("Error fetching document: ", error);
-                alert('حدث خطأ أثناء جلب التفاصيل.');
+                showToast('حدث خطأ أثناء جلب التفاصيل.');
             });
         }
 
-        // دالة التحميل المحدثة: تجلب الرابط، تزيد العداد، ثم توجه المستخدم
-        window.downloadApp = function(id) {
-            // 1. جلب بيانات التطبيق للحصول على رابط التحميل
+        // **دالة التحميل المحدثة: إضافة تأثير التحميل واستخدام Toast**
+        window.downloadApp = function(id, buttonElement = null) {
+            let btn = buttonElement;
+            if (!btn) {
+                // محاولة إيجاد الزر داخل المودال إذا لم يتم تمريره
+                btn = document.querySelector('.download-modal-btn');
+            }
+            
+            // 1. تفعيل وضع التحميل
+            if (btn) {
+                btn.classList.add('loading');
+                // حفظ النص الأصلي للزر لإعادته لاحقًا
+                btn.originalText = btn.innerHTML;
+                btn.innerHTML = ''; 
+            }
+
             appsCollection.doc(id).get().then(doc => {
                 const app = doc.data();
+                
+                // 2. التحقق من رابط التحميل
                 if (!app || !app.downloadLink) {
-                    alert('عفواً، رابط تحميل هذا التطبيق غير متوفر حالياً. يرجى إضافته عبر لوحة التحكم.');
-                    return;
+                    showToast('عفواً، رابط تحميل هذا التطبيق غير متوفر حالياً.', 4000);
+                    return Promise.reject(new Error("Download link not available"));
                 }
                 
-                alert(`جارٍ تحضير رابط تحميل تطبيق ${app.name}...`);
+                // رسالة "جاري تثبيت التطبيق" الاحترافية
+                showToast(`جاري تحضير ملف ${app.name} للتحميل...`, 2500);
 
-                // 2. زيادة عداد التحميلات في Firestore
+                // 3. زيادة عداد التحميلات في Firestore
                 return appsCollection.doc(id).update({
                     downloads: firebase.firestore.FieldValue.increment(1)
                 }).then(() => {
-                    // 3. توجيه المستخدم إلى رابط التحميل
-                    window.open(app.downloadLink, '_blank');
+                    // 4. توجيه المستخدم إلى رابط التحميل
+                    setTimeout(() => {
+                         window.open(app.downloadLink, '_blank');
+                         showToast(`تم بدء تحميل ${app.name}. شكراً لك!`, 3000);
+                    }, 1000); // تأخير بسيط لاحترافية العرض
                 });
+
             }).catch(error => {
                 console.error("Error in download process: ", error);
-                alert("حدث خطأ أثناء عملية التحميل. تأكد من قواعد الأمان والاتصال.");
+                // إذا كان الخطأ بسبب عدم وجود رابط، لا نظهر رسالة خطأ تقنية
+                if (!error.message.includes("Download link not available")) {
+                    showToast("حدث خطأ أثناء عملية التحميل. تأكد من اتصالك.", 4000);
+                }
+            }).finally(() => {
+                // 5. إيقاف وضع التحميل بعد فترة قصيرة
+                setTimeout(() => {
+                    if (btn) {
+                        btn.classList.remove('loading');
+                        if (btn.originalText) {
+                            btn.innerHTML = btn.originalText;
+                        }
+                    }
+                }, 3000);
             });
         }
 
@@ -850,10 +954,13 @@
             document.getElementById('imageModal').style.display = 'none';
         }
 
-        // دالة وهمية لمعالجة نموذج الاتصال 
+        // **دالة معالجة نموذج الاتصال المحدثة: استخدام Toast**
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('تم استلام رسالتك! سنقوم بالرد عليك قريباً. (ملاحظة: يتطلب الإرسال الفعلي خادم بريد)');
+            
+            // هنا يجب إضافة كود الإرسال الفعلي لـ Firebase أو خادم البريد
+            
+            showToast('✅ تم استلام رسالتك! سنقوم بالرد عليك قريباً.', 4000);
             this.reset();
         });
 

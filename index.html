@@ -197,6 +197,52 @@
             text-align: right;
         }
 
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .app-cover {
+            height: 150px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .app-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .app-card:hover .app-cover img {
+            transform: scale(1.05);
+        }
+
+        .app-cover .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .app-cover:hover .overlay {
+            opacity: 1;
+        }
+
+        .app-cover .overlay i {
+            color: white;
+            font-size: 2em;
+        }
+
         .app-info {
             display: flex;
             align-items: center;
@@ -212,8 +258,65 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
+        .app-text {
+            flex-grow: 1;
+        }
+
+        .app-title {
+            font-size: 1.1em;
+            color: var(--dark);
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .app-title:hover {
+            color: var(--primary);
+        }
+
+        .app-category {
+            font-size: 0.85em;
+            color: #777;
+            margin-bottom: 5px;
+        }
+
+        .app-rating {
+            font-size: 0.9em;
+            color: gold;
+        }
+
+        .app-rating i {
+            font-size: 0.8em;
+        }
+
+        .app-rating i.filled {
+            color: gold;
+        }
+
+        .app-rating span {
+            color: #777;
+            margin-left: 5px;
+        }
+
+        .download-btn {
+            width: calc(100% - 30px);
+            margin: 0 15px 15px;
+            padding: 12px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: opacity 0.3s ease;
+        }
+
+        .download-btn:hover {
+            opacity: 0.9;
+        }
+        
         /*====================
-        Contact Section (جديد)
+        Contact Section
         ====================*/
         #contact-us {
             padding: 60px 20px;
@@ -275,7 +378,7 @@
         }
 
         /*====================
-        Footer (جديد)
+        Footer
         ====================*/
         .footer {
             background-color: var(--dark);
@@ -313,10 +416,141 @@
             color: var(--secondary);
         }
 
-        /* Modals and other styles from previous versions remain here... */
+        /*====================
+        Modals
+        ====================*/
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            padding-top: 60px;
+            backdrop-filter: blur(5px);
+        }
 
+        .modal-content {
+            background-color: var(--light);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 700px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.4s ease-out;
+            position: relative;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close {
+            color: var(--dark);
+            float: left;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        .details-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .details-header img {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            object-fit: cover;
+            margin-left: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .details-info h3 {
+            font-size: 1.8em;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .details-info p {
+            color: #777;
+            margin-bottom: 3px;
+        }
+
+        .details-stats {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #f0f0f5;
+        }
+
+        .details-stats strong {
+            display: block;
+            font-size: 1.2em;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .details-stats small {
+            color: var(--primary);
+        }
+
+        .details-screenshots {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+
+        .details-screenshots img {
+            width: 150px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .details-screenshots img:hover {
+            transform: scale(1.05);
+        }
+
+        .modal-download-btn {
+            background: var(--gradient);
+            width: 100%;
+            padding: 15px;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .modal-download-btn:hover {
+            transform: translateY(-2px);
+        }
     </style>
-    </head>
+</head>
 <body>
     <header>
         <nav>
@@ -324,7 +558,8 @@
             <div class="nav-links">
                 <a href="#hero" class="active">الرئيسية</a>
                 <a href="#apps-section">التطبيقات</a>
-                <a href="#contact-us">تواصل معنا</a> </div>
+                <a href="#contact-us">تواصل معنا</a>
+            </div>
         </nav>
     </header>
 
@@ -380,6 +615,56 @@
         </div>
     </section>
     
+    <div id="appDetailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('appDetailsModal').style.display='none';">&times;</span>
+            <div class="details-header">
+                <img id="detailsIcon" src="" alt="App Icon">
+                <div class="details-info">
+                    <h3 id="detailsTitle">اسم التطبيق</h3>
+                    <p id="detailsCategory">الفئة</p>
+                </div>
+            </div>
+            
+            <div class="details-stats">
+                <div>
+                    <strong id="detailsRating"></strong>
+                    <small>التقييم</small>
+                </div>
+                <div>
+                    <strong id="detailsDownloads"></strong>
+                    <small>تحميل</small>
+                </div>
+                <div>
+                    <strong id="detailsSize"></strong>
+                    <small>الحجم</small>
+                </div>
+                <div>
+                    <strong id="detailsVersion"></strong>
+                    <small>الإصدار</small>
+                </div>
+            </div>
+
+            <div class="details-body">
+                <h4>الوصف</h4>
+                <p id="detailsDescription">وصف تفصيلي للتطبيق...</p>
+
+                <h4>لقطات الشاشة</h4>
+                <div class="details-screenshots" id="detailsScreenshots">
+                    </div>
+            </div>
+            
+            <button class="modal-download-btn" id="modalDownloadButton" onclick="downloadApp(window.currentAppId)">
+                تحميل الآن <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="imageModal" class="modal">
+        <span class="image-modal-close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage" alt="Fullscreen Image">
+    </div>
+
     <footer class="footer">
         <p>&copy; 2024 **Sudan Play**. جميع الحقوق محفوظة.</p>
         <p>تصميم وتطوير بواسطة [اسم شركتك/مطورك].</p>
@@ -392,18 +677,234 @@
     </footer>
 
     <script>
-        // ... (كود الدوال getApps, saveApps, loadApps, filterApps, searchApps, openDetailsModal, downloadApp, openModal, closeModal كما هو) ...
-        
-        // **التغييرات الوحيدة المطلوبة في الـ JS هي: **
-        
-        // تحديث دالة getApps لتعيين قيم افتراضية لمسارات الصور في التطبيقات التجريبية:
+        // دوال مساعدة لـ localStorage
+        function saveApps(apps) {
+            localStorage.setItem('sudanPlayApps', JSON.stringify(apps));
+        }
+
         function getApps() {
             const appsJson = localStorage.getItem('sudanPlayApps');
+            // إذا لم يكن هناك بيانات (أول مرة)، قم بإنشاء بيانات تجريبية (باستخدام روابط صور خارجية لضمان ظهورها)
             if (!appsJson) {
                 const initialApps = [
                     { 
                         id: 1, name: "تطبيق تجريبي 1", category: "ألعاب", version: "1.0.0", size: 50.5, rating: 4.5, downloads: 1000, 
-                        description: "هذا تطبيق تجريبي. يمكنك حذفه أو تعديله من لوحة التحكم.", 
-                        icon: "https://via.placeholder.com/60/4a6bff/ffffff?text=Icon1", 
-                        cover: "https://via.placeholder.com/300x150/4a6bff/ffffff?text=Cover1", 
-                        screenshots: ["https://
+                        description: "هذا تطبيق تجريبي. يرجى حذفه وإضافة تطبيقك الخاص من لوحة التحكم.", 
+                        icon: "https://via.placeholder.com/60/4a6bff/ffffff?text=Game", 
+                        cover: "https://via.placeholder.com/300x150/4a6bff/ffffff?text=SUDAN+PLAY", 
+                        screenshots: ["https://via.placeholder.com/150x250/ccc/333?text=Screen1", "https://via.placeholder.com/150x250/ddd/333?text=Screen2"] 
+                    },
+                    { 
+                        id: 2, name: "تطبيق تجريبي 2", category: "أخبار", version: "2.1.0", size: 12.0, rating: 4.0, downloads: 500, 
+                        description: "تطبيق أخبار سريع وموثوق.", 
+                        icon: "https://via.placeholder.com/60/ff5e7d/ffffff?text=News", 
+                        cover: "https://via.placeholder.com/300x150/ff5e7d/ffffff?text=SUDAN+NEWS", 
+                        screenshots: ["https://via.placeholder.com/150x250/ccc/333?text=Screen3"] 
+                    }
+                ];
+                saveApps(initialApps); 
+                return initialApps;
+            }
+            return JSON.parse(appsJson);
+        }
+
+        // دالة تحميل وعرض التطبيقات من localStorage
+        function loadApps() {
+            const apps = getApps(); 
+            const appsContainer = document.getElementById('apps-container');
+            appsContainer.innerHTML = '';
+
+            if (apps.length === 0) {
+                appsContainer.innerHTML = '<p class="no-apps" style="grid-column: 1 / -1; text-align: center; padding: 20px; font-size: 1.2em; color: var(--secondary);">لا توجد تطبيقات متاحة حاليًا. يرجى إضافتها من لوحة التحكم.</p>';
+                return;
+            }
+            
+            apps.forEach(app => {
+                const appCard = document.createElement('div');
+                appCard.classList.add('app-card');
+                appCard.setAttribute('data-category', app.category);
+                
+                // حساب النجوم
+                const fullStars = Array(Math.floor(app.rating)).fill('<i class="fas fa-star filled"></i>').join('');
+                const emptyStars = Array(5 - Math.floor(app.rating)).fill('<i class="fas fa-star"></i>').join('');
+                
+                // استخدام روابط الصور المحفوظة مع رابط احتياطي لضمان عدم ظهور أخطاء
+                const iconSrc = app.icon || "https://via.placeholder.com/60/000/fff?text=Icon";
+                const coverSrc = app.cover || "https://via.placeholder.com/300x150/000/fff?text=No+Cover";
+
+                appCard.innerHTML = `
+                    <div class="app-cover" onclick="openDetailsModal(${app.id})">
+                        <img src="${coverSrc}" alt="${app.name} Cover">
+                        <div class="overlay">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                    <div class="app-info">
+                        <img src="${iconSrc}" alt="${app.name} Icon" class="app-icon">
+                        <div class="app-text">
+                            <h3 class="app-title" onclick="openDetailsModal(${app.id})">${app.name}</h3>
+                            <p class="app-category">${app.category}</p>
+                            <div class="app-rating">
+                                ${fullStars}
+                                ${emptyStars}
+                                <span>(${app.downloads || 0} تحميل)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="download-btn" onclick="downloadApp(${app.id})">تحميل <i class="fas fa-download"></i></button>
+                `;
+                appsContainer.appendChild(appCard);
+            });
+        }
+        
+        // دالة فلترة التطبيقات (بقية الدوال كما هي)
+        function filterApps(category, button) {
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            const appCards = document.querySelectorAll('.app-card');
+            appCards.forEach(card => {
+                const appCategory = card.getAttribute('data-category');
+                if (category === 'الكل' || appCategory === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        function searchApps() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            const appCards = document.querySelectorAll('.app-card');
+
+            appCards.forEach(card => {
+                const appName = card.querySelector('.app-title').textContent.toLowerCase();
+                const appCategory = card.getAttribute('data-category').toLowerCase();
+                
+                if (appName.includes(searchTerm) || appCategory.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.category-btn[data-category="الكل"]').classList.add('active');
+        }
+
+        window.openDetailsModal = function(id) {
+            const apps = getApps();
+            const app = apps.find(a => a.id === id);
+            
+            if (app) {
+                window.currentAppId = app.id;
+                
+                document.getElementById('detailsIcon').src = app.icon || 'https://via.placeholder.com/80/000/fff?text=Icon';
+                document.getElementById('detailsTitle').textContent = app.name;
+                document.getElementById('detailsCategory').textContent = app.category;
+                document.getElementById('detailsDescription').textContent = app.description;
+                document.getElementById('detailsVersion').textContent = `${app.version}`;
+                document.getElementById('detailsSize').textContent = `${app.size} ميغابايت`;
+                
+                const ratingContainer = document.getElementById('detailsRating');
+                ratingContainer.innerHTML = `${app.rating || '0'} ${Array(Math.floor(app.rating || 0)).fill('<i class="fas fa-star filled"></i>').join('')}`;
+
+                document.getElementById('detailsDownloads').textContent = `${app.downloads || 0}`;
+                
+                const screenshotsContainer = document.getElementById('detailsScreenshots');
+                screenshotsContainer.innerHTML = '';
+                // تحصين قراءة المصفوفة: التأكد من أنها مصفوفة قبل التكرار
+                if (Array.isArray(app.screenshots)) {
+                    app.screenshots.forEach(src => {
+                        const img = document.createElement('img');
+                        img.src = src;
+                        img.alt = 'لقطة شاشة للتطبيق';
+                        img.onclick = () => openModal(src);
+                        screenshotsContainer.appendChild(img);
+                    });
+                }
+                
+                document.getElementById('appDetailsModal').style.display = 'block';
+            } else {
+                alert('لم يتم العثور على التطبيق.');
+            }
+        }
+
+        window.downloadApp = function(id) {
+            // ... (كود التحميل كما هو)
+             const apps = getApps();
+            const app = apps.find(a => a.id === id);
+            
+            if (app) {
+                alert(`جارٍ تحضير ملف التثبيت لتطبيق: ${app.name}...`);
+                
+                setTimeout(() => {
+                    alert(`جاري تنزيل ملف التثبيت...`);
+                    
+                    let updatedApps = getApps();
+                    const appIndex = updatedApps.findIndex(a => a.id === id);
+                    if (appIndex !== -1) {
+                        updatedApps[appIndex].downloads = (updatedApps[appIndex].downloads || 0) + 1;
+                        saveApps(updatedApps); 
+                        loadApps(); 
+                        
+                        if(document.getElementById('appDetailsModal').style.display === 'block') {
+                            openDetailsModal(id);
+                        }
+                    }
+                    
+                    setTimeout(() => {
+                         alert(`تم تحميل ${app.name} بنجاح!\n\nسيتم تثبيت التطبيق على جهازك.`);
+                    }, 500);
+
+                }, 2000);
+            }
+        }
+
+        function openModal(imageUrl) {
+            document.getElementById('modalImage').src = imageUrl;
+            document.getElementById('imageModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // دالة وهمية لمعالجة نموذج الاتصال 
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('تم استلام رسالتك! سنقوم بالرد عليك قريباً. (ملاحظة: يتطلب الإرسال الفعلي خادم بريد)');
+            this.reset();
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadApps();
+            
+            // إضافة تأثيرات للروابط
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+
+        window.onclick = function(event) {
+            const detailsModal = document.getElementById('appDetailsModal');
+            const imageModal = document.getElementById('imageModal');
+            
+            if (event.target === detailsModal) {
+                detailsModal.style.display = 'none';
+            }
+            if (event.target === imageModal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

@@ -226,6 +226,12 @@
             color: white;
             padding: 8px 15px;
         }
+        
+        .image-paths-info {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -280,6 +286,22 @@
                 </div>
                 
                 <div class="form-group">
+                    <label for="appIconPath">مسار أيقونة التطبيق (URL/Path) *</label>
+                    <input type="text" id="appIconPath" class="form-control" value="https://via.placeholder.com/60/4a6bff/ffffff?text=Icon" required>
+                    <small class="image-paths-info">مثال: images/my-icon.png أو رابط مباشر.</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appCoverPath">مسار صورة الغلاف (URL/Path) *</label>
+                    <input type="text" id="appCoverPath" class="form-control" value="https://via.placeholder.com/300x150/4a6bff/ffffff?text=Cover" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appScreenshotsPaths">مسارات لقطات الشاشة (URLs مفصولة بفواصل) *</label>
+                    <textarea id="appScreenshotsPaths" class="form-control" rows="3" required>https://via.placeholder.com/150x250/ccc/333?text=SS1, https://via.placeholder.com/150x250/ddd/333?text=SS2</textarea>
+                    <small class="image-paths-info">افصل بين الروابط باستخدام فاصلة (مثال: path1, path2, path3)</small>
+                </div>
+                <div class="form-group">
                     <label for="appDescription">الوصف *</label>
                     <textarea id="appDescription" class="form-control" rows="4" required></textarea>
                 </div>
@@ -314,7 +336,6 @@
         // دوال مساعدة لـ localStorage لإدارة بيانات التطبيقات
         function getApps() {
             const appsJson = localStorage.getItem('sudanPlayApps');
-            // إذا لم يكن هناك بيانات، قم بإرجاع مصفوفة فارغة
             return appsJson ? JSON.parse(appsJson) : [];
         }
 
@@ -325,18 +346,18 @@
         // دالة لإضافة تطبيق جديد
         function addApp(formData) {
             const apps = getApps();
-            // توليد معرف فريد جديد (أكبر ID + 1)
             const newId = apps.length > 0 ? Math.max(...apps.map(a => a.id)) + 1 : 1;
             const newApp = { 
                 id: newId, 
-                // تحويل الحقول الرقمية للتأكد من نوعها
+                // تحويل الحقول الرقمية
                 size: parseFloat(formData.size) || 0,
                 rating: parseFloat(formData.rating) || 0,
                 downloads: parseInt(formData.downloads) || 0,
-                // تعيين مسارات صور افتراضية (يمكنك تطويرها لاحقًا)
-                icon: 'images/icon-default.png', 
-                cover: 'images/cover-default.jpg',
-                screenshots: ['images/screenshot1.jpg'],
+                // مسارات الصور الجديدة
+                icon: formData.iconPath, 
+                cover: formData.coverPath, 
+                // تحويل مسارات لقطات الشاشة إلى مصفوفة
+                screenshots: formData.screenshotsPaths.split(',').map(s => s.trim()).filter(s => s.length > 0), 
                 ...formData, // دمج بقية حقول النموذج
             };
             apps.push(newApp);
@@ -361,7 +382,7 @@
                 appCard.classList.add('app-card');
                 appCard.innerHTML = `
                     <div class="app-header">
-                        <img src="${app.icon || 'images/default-icon.png'}" alt="Icon" class="app-icon">
+                        <img src="${app.icon || 'https://via.placeholder.com/50/000/fff?text=Icon'}" alt="Icon" class="app-icon">
                         <h3 class="app-name">${app.name}</h3>
                     </div>
                     <div class="app-body">
@@ -386,7 +407,7 @@
             const app = apps.find(a => a.id === id);
             
             if (app) {
-                // ملء النموذج ببيانات التطبيق
+                // ملء النموذج ببيانات التطبيق الأساسية
                 document.getElementById('appName').value = app.name || '';
                 document.getElementById('appCategory').value = app.category || 'ألعاب';
                 document.getElementById('appVersion').value = app.version || '1.0.0';
@@ -395,6 +416,12 @@
                 document.getElementById('appDownloads').value = app.downloads || '';
                 document.getElementById('appDescription').value = app.description || '';
                 
+                // ملء حقول مسارات الصور الجديدة
+                document.getElementById('appIconPath').value = app.icon || '';
+                document.getElementById('appCoverPath').value = app.cover || '';
+                // تحويل مصفوفة لقطات الشاشة إلى نص مفصول بفواصل
+                document.getElementById('appScreenshotsPaths').value = (app.screenshots || []).join(', ');
+
                 // وضع الـ id في النموذج لمعرفة أننا في وضع التعديل
                 document.getElementById('appForm').dataset.editingId = app.id;
                 
@@ -434,6 +461,10 @@
                 appForm.reset();
                 delete appForm.dataset.editingId;
                 submitBtn.textContent = 'إضافة التطبيق';
+                // إعادة تعيين مسارات الصور للقيمة الافتراضية
+                document.getElementById('appIconPath').value = "https://via.placeholder.com/60/4a6bff/ffffff?text=Icon";
+                document.getElementById('appCoverPath').value = "https://via.placeholder.com/300x150/4a6bff/ffffff?text=Cover";
+                document.getElementById('appScreenshotsPaths').value = "https://via.placeholder.com/150x250/ccc/333?text=SS1, https://via.placeholder.com/150x250/ddd/333?text=SS2";
             }
             
             // معالجة إرسال النموذج (إضافة أو تعديل)
@@ -449,6 +480,10 @@
                     rating: document.getElementById('appRating').value,
                     downloads: document.getElementById('appDownloads').value,
                     description: document.getElementById('appDescription').value,
+                    // جمع حقول الصور الجديدة
+                    iconPath: document.getElementById('appIconPath').value.trim(),
+                    coverPath: document.getElementById('appCoverPath').value.trim(),
+                    screenshotsPaths: document.getElementById('appScreenshotsPaths').value.trim(),
                 };
 
                 const editingId = appForm.dataset.editingId;
@@ -464,6 +499,10 @@
                             size: parseFloat(formData.size) || 0,
                             rating: parseFloat(formData.rating) || 0,
                             downloads: parseInt(formData.downloads) || 0,
+                            icon: formData.iconPath, // تحديث الأيقونة
+                            cover: formData.coverPath, // تحديث الغلاف
+                            // تحديث لقطات الشاشة وتحويلها إلى مصفوفة
+                            screenshots: formData.screenshotsPaths.split(',').map(s => s.trim()).filter(s => s.length > 0), 
                         };
                         saveApps(apps);
                         alert('تم تعديل التطبيق بنجاح!');

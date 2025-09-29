@@ -850,5 +850,140 @@
             }
         }
     </script>
+    <script>
+    // دالة تحميل التطبيقات من localStorage
+    function loadApps(category = 'all') {
+        const container = document.getElementById('appsContainer');
+        
+        // جلب التطبيقات من localStorage
+        const storedApps = JSON.parse(localStorage.getItem('sudanPlayApps')) || [];
+        
+        const filteredApps = category === 'all' ? storedApps : storedApps.filter(app => app.category === category);
+        
+        if (filteredApps.length === 0) {
+            container.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #666;">
+                    <i class="fas fa-mobile-alt" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                    <p>لا توجد تطبيقات متاحة في هذه الفئة</p>
+                </div>
+            `;
+            return;
+        }
+        
+        container.innerHTML = filteredApps.map(app => `
+            <div class="app-card">
+                <img src="${app.icon}" alt="${app.name}" class="app-image" onerror="this.src='https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=200&fit=crop'">
+                <div class="app-content">
+                    <div class="app-header">
+                        <img src="${app.icon}" alt="${app.name}" class="app-icon" onerror="this.src='https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=200&h=200&fit=crop'">
+                        <div class="app-title">
+                            <h3>${app.name}</h3>
+                            <span class="app-category">${app.category}</span>
+                        </div>
+                    </div>
+                    
+                    <p class="app-description">${app.description}</p>
+                    
+                    ${app.screenshots && app.screenshots.length > 0 ? `
+                        <div class="app-screenshots">
+                            ${app.screenshots.map(screenshot => `
+                                <img src="${screenshot}" alt="لقطة شاشة" class="screenshot" onclick="openModal('${screenshot}')" onerror="this.style.display='none'">
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                    
+                    <div class="app-stats">
+                        <div class="app-meta">
+                            <span><i class="fas fa-download"></i> ${app.downloads.toLocaleString()}</span>
+                            <span><i class="fas fa-star"></i> ${app.rating}</span>
+                            <span>${app.size}</span>
+                        </div>
+                        <button class="download-btn" onclick="downloadApp(${app.id})">
+                            <i class="fas fa-download"></i> تحميل
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // دالة تصفية التطبيقات
+    function filterApps(category) {
+        // تحديث الأزرار النشطة
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+        
+        // تحميل التطبيقات المصفاة
+        loadApps(category);
+    }
+
+    // دالة التحميل
+    function downloadApp(appId) {
+        const storedApps = JSON.parse(localStorage.getItem('sudanPlayApps')) || [];
+        const app = storedApps.find(a => a.id == appId);
+        
+        if (app) {
+            // محاكاة عملية التحميل
+            const originalText = event.target.innerHTML;
+            event.target.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحميل...';
+            event.target.disabled = true;
+            
+            setTimeout(() => {
+                event.target.innerHTML = '<i class="fas fa-check"></i> تم التحميل';
+                
+                setTimeout(() => {
+                    event.target.innerHTML = originalText;
+                    event.target.disabled = false;
+                    
+                    // إذا كان هناك رابط تحميل، افتحه
+                    if (app.downloadUrl && app.downloadUrl !== '#') {
+                        window.open(app.downloadUrl, '_blank');
+                    } else {
+                        alert(`تم تحميل ${app.name} بنجاح!\n\nسيتم تثبيت التطبيق على جهازك.`);
+                    }
+                }, 1000);
+            }, 2000);
+        }
+    }
+
+    // دالة فتح الصورة في modal
+    function openModal(imageUrl) {
+        document.getElementById('modalImage').src = imageUrl;
+        document.getElementById('imageModal').style.display = 'block';
+    }
+
+    // دالة إغلاق modal
+    function closeModal() {
+        document.getElementById('imageModal').style.display = 'none';
+    }
+
+    // عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+        loadApps();
+        
+        // إضافة تأثيرات للروابط
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    });
+
+    // إغلاق modal عند النقر خارج الصورة
+    window.onclick = function(event) {
+        const modal = document.getElementById('imageModal');
+        if (event.target === modal) {
+            closeModal();
+        }
+    }
+</script>
 </body>
 </html>

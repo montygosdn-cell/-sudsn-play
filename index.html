@@ -546,8 +546,8 @@
     <header>
         <nav>
             <div class="logo">
-                <img src="logo.jpeg" alt="Sudan Play " style="height: 35px; margin-left: 10px; vertical-align: middle;">
-                
+                <img src="logo.jpeg" alt="Sudan Play Logo" style="height: 35px; margin-left: 10px; vertical-align: middle;">
+                Sudan Play
             </div>
             <div class="nav-links">
                 <a href="#hero" class="active">الرئيسية</a>
@@ -604,7 +604,7 @@
             </form>
             <div class="contact-info">
                 <p>يمكنك التواصل معنا مباشرة عبر البريد الإلكتروني:</p>
-                <p><a href="mailto:info@sudanplay.com"><montygosdn@gmail.com/a></p>
+                <p><a href="mailto:info@sudanplay.com">info@sudanplay.com</a></p>
             </div>
         </div>
     </section>
@@ -660,8 +660,8 @@
     </div>
 
     <footer class="footer">
-        <p>&copy; 2025 **Sudan Play**. جميع الحقوق محفوظة.</p>
-        <p>تصميم وتطوير بواسطة [Monty GO SDN-Co-LTD].</p>
+        <p>&copy; 2024 **Sudan Play**. جميع الحقوق محفوظة.</p>
+        <p>تصميم وتطوير بواسطة [اسم شركتك/مطورك].</p>
         <div class="social">
             <a href="#" aria-label="فيسبوك"><i class="fab fa-facebook-f"></i></a>
             <a href="#" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
@@ -680,7 +680,20 @@
             // إذا لم يكن هناك بيانات (أول مرة)، قم بإنشاء بيانات تجريبية (باستخدام روابط صور خارجية لضمان ظهورها)
             if (!appsJson) {
                 const initialApps = [
-                    
+                    { 
+                        id: 1, name: "تطبيق تجريبي 1", category: "ألعاب", version: "1.0.0", size: 50.5, rating: 4.5, downloads: 1000, 
+                        description: "هذا تطبيق تجريبي. يرجى حذفه وإضافة تطبيقك الخاص من لوحة التحكم.", 
+                        icon: "https://via.placeholder.com/60/4a6bff/ffffff?text=Game", 
+                        cover: "https://via.placeholder.com/300x150/4a6bff/ffffff?text=SUDAN+PLAY", 
+                        screenshots: ["https://via.placeholder.com/150x250/ccc/333?text=Screen1", "https://via.placeholder.com/150x250/ddd/333?text=Screen2"] 
+                    },
+                    { 
+                        id: 2, name: "تطبيق تجريبي 2", category: "أخبار", version: "2.1.0", size: 12.0, rating: 4.0, downloads: 500, 
+                        description: "تطبيق أخبار سريع وموثوق.", 
+                        icon: "https://via.placeholder.com/60/ff5e7d/ffffff?text=News", 
+                        cover: "https://via.placeholder.com/300x150/ff5e7d/ffffff?text=SUDAN+NEWS", 
+                        screenshots: ["https://via.placeholder.com/150x250/ccc/333?text=Screen3"] 
+                    }
                 ];
                 saveApps(initialApps); 
                 return initialApps;
